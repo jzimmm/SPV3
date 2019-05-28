@@ -33,12 +33,12 @@ namespace HXE
     /// </summary>
     public static class Files
     {
-      public const string Executable  = "haloce.exe";
-      public const string Initiation  = "initc.txt";
-      public const string Progress    = "savegame.bin";
-      public const string Profile     = "blam.sav";
-      public const string Manifest    = "0x00.bin";
-      public const string LastProfile = "lastprof.txt";
+      public const           string Executable  = "haloce.exe";
+      public const           string Initiation  = "initc.txt";
+      public const           string Progress    = "savegame.bin";
+      public const           string Profile     = "blam.sav";
+      public const           string LastProfile = "lastprof.txt";
+      public static readonly string Manifest    = $"0x{0:X8}.bin";
 
       public static readonly string Installation  = Combine(Directories.HXE,       "install.txt");
       public static readonly string Configuration = Combine(Directories.HXE,       "loader.bin");
