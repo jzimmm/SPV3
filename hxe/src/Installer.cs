@@ -128,9 +128,11 @@ namespace HXE
          * people?
          */
 
+        Wait("Started package inflation - " + package.Name + " - " + package.Entry.Name + " ...");
+
         while (!task.IsCompleted)
         {
-          Wait(Resources.Progress);
+          System.Console.Write(Resources.Progress);
           Thread.Sleep(1000);
         }
 
