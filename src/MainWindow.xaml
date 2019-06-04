@@ -47,40 +47,58 @@
             <Button>
                 Launch SPV3
             </Button>
-            
+
             <!-- Settings -->
             <Button>
                 Settings
             </Button>
-            
+
             <!-- Help -->
             <Button>
                 Help
             </Button>
-            
+
             <!-- Exit -->
             <Button>
                 Exit
             </Button>
         </StackPanel>
-        
-        <!-- Meta -->
+
+        <!-- Updates -->
         <StackPanel HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Orientation="Horizontal">
+
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="Foreground" Value="#BFFFFFFF"/>
+                    <Setter Property="Background" Value="#BF008000"/>
+                    <Setter Property="Margin" Value="1,0,0,0"/>
+
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Green" />
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Resources>
 
             <!-- Assets update -->
             <Label>
                 New SPV3 update available!
             </Label>
-            
+
             <!-- Loader update -->
             <Label>
                 New loader update available!
             </Label>
-            
-            <!-- Version -->
-            <Label>
+        </StackPanel>
+        
+        <!-- Version -->
+        <StackPanel HorizontalAlignment="Right"
+                    VerticalAlignment="Top">
+            <Label Foreground="#3FFFFFFF">
                 Version: 0000
             </Label>
         </StackPanel>
