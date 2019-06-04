@@ -27,71 +27,62 @@
         mc:Ignorable="d"
         Title="SPV3 GUI"
         SnapsToDevicePixels="True"
-        SizeToContent="Height"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
-        Width="320">
+        WindowStyle="None"
+        Width="960"
+        Height="540">
+    <Window.Background>
+        <ImageBrush ImageSource="Assets/background.jpg"/>
+    </Window.Background>
     <Window.DataContext>
         <spv3:Main />
     </Window.DataContext>
-    <StackPanel Margin="10">
-        <Image Source="/Assets/icon.ico"
-               Stretch="None" />
+    <Grid Margin="25">
+        <!-- Main -->
+        <StackPanel HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom">
 
-        <!-- Loader -->
-        <GroupBox Header="Loader">
-            <StackPanel>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"
-                            Click="Load"
-                            IsEnabled="{Binding CanLoad}"
-                            Margin="0,0,0.5,0">
-                        Load SPV3 (normal)
-                    </Button>
-                    <Button Grid.Column="1"
-                            Click="LoadWindow"
-                            IsEnabled="{Binding CanLoad}"
-                            Margin="0.5,0,0,0">
-                        Load SPV3 (window)
-                    </Button>
-                </Grid>
-                <Button Click="Settings"
-                        Margin="0,1,0,0">
-                    Settings
-                </Button>
-                <Button Click="Installer"
-                        Margin="0,1,0,0">
-                    Installer
-                </Button>
-                <Button Click="Compiler"
-                        Margin="0,1,0,0">
-                    Compiler
-                </Button>
-            </StackPanel>
-        </GroupBox>
+            <!-- Launch SPV3 -->
+            <Button>
+                Launch SPV3
+            </Button>
+            
+            <!-- Settings -->
+            <Button>
+                Settings
+            </Button>
+            
+            <!-- Help -->
+            <Button>
+                Help
+            </Button>
+            
+            <!-- Exit -->
+            <Button>
+                Exit
+            </Button>
+        </StackPanel>
+        
+        <!-- Meta -->
+        <StackPanel HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Orientation="Horizontal">
 
-        <!-- Update -->
-        <GroupBox Header="Update">
-            <spv3:UpdateUserControl />
-        </GroupBox>
-
-        <!-- Status -->
-        <GroupBox Header="Status">
-            <TextBlock HorizontalAlignment="Center"
-                       TextWrapping="WrapWithOverflow"
-                       Text="{Binding Status}" />
-        </GroupBox>
-
-        <!-- Version -->
-        <GroupBox Header="Version">
-            <Label Name="Version"
-                   HorizontalAlignment="Center">
-                build-0000
+            <!-- Assets update -->
+            <Label>
+                New SPV3 update available!
             </Label>
-        </GroupBox>
-    </StackPanel>
+            
+            <!-- Loader update -->
+            <Label>
+                New loader update available!
+            </Label>
+            
+            <!-- Version -->
+            <Label>
+                Version: 0000
+            </Label>
+        </StackPanel>
+    </Grid>
 </Window>

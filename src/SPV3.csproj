@@ -124,5 +124,8 @@
   <ItemGroup>
     <Resource Include="Assets\amaisosu.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\background.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
