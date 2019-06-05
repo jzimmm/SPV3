@@ -5,6 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SPV3"
              mc:Ignorable="d">
+    <UserControl.DataContext>
+        <local:Home/>
+    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -22,7 +25,7 @@
                     Grid.Row="0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top">
-            <Label Content="{Binding Version}"
+            <Label Content="{Binding VersionString}"
                    PreviewMouseDown="ViewVersion">
                 <Label.Style>
                     <Style TargetType="{x:Type Label}">

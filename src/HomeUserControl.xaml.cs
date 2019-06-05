@@ -10,14 +10,17 @@ namespace SPV3
   /// </summary>
   public partial class HomeUserControl : UserControl
   {
+    private readonly Home _home;
+    
     public HomeUserControl()
     {
       InitializeComponent();
+      _home = (Home) DataContext;
     }
 
     private void ViewVersion(object sender, MouseButtonEventArgs e)
     {
-      Process.Start($"https://github.com/yumiris/SPV3/tree/build-{GetEntryAssembly()?.GetName().Version.Major:D4}");
+      Process.Start(_home.VersionAddress);
     }
   }
 }

@@ -18,34 +18,10 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-using System.ComponentModel;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using SPV3.Annotations;
-
 namespace SPV3
 {
-  public class Main : INotifyPropertyChanged
+  public class Main
   {
-    private string _version = $"Version {Assembly.GetEntryAssembly()?.GetName().Version.Major:D4}";
-
-    public string Version
-    {
-      get => _version;
-      set
-      {
-        if (value == _version) return;
-        _version = value;
-        OnPropertyChanged();
-      }
-    }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    [NotifyPropertyChangedInvocator]
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    //
   }
 }

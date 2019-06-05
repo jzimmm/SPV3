@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright (c) 2019 Emilian Roman
  * 
  * This software is provided 'as-is', without any express or implied
@@ -18,19 +18,25 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using SPV3.Annotations;
+using static System.Reflection.Assembly;
+
 namespace SPV3
 {
-  /// <summary>
-  ///   Interaction logic for MainWindow.xaml
-  /// </summary>
-  public partial class MainWindow
+  public class Home : INotifyPropertyChanged
   {
-    private readonly Main _main;
+    public string Version        => GetEntryAssembly()?.GetName().Version.Major.ToString("D4");
+    public string VersionString  => $"Version {Version}";
+    public string VersionAddress => $"https://github.com/yumiris/SPV3/tree/build-{Version}";
 
-    public MainWindow()
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    [NotifyPropertyChangedInvocator]
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
-      InitializeComponent();
-      _main = (Main) DataContext;
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
   }
 }
