@@ -18,7 +18,8 @@
  3. This notice may not be removed or altered from any source distribution.
 -->
 
-<Window x:Class="SPV3.MainWindow"
+<Controls:MetroWindow x:Class="SPV3.MainWindow"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -30,6 +31,10 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
         WindowStyle="None"
+        ShowTitleBar="False"
+        ShowCloseButton="False"
+        ShowMinButton="False"
+        BorderThickness="0"
         Width="960"
         Height="540">
     <Window.Background>
@@ -38,9 +43,10 @@
     <Window.DataContext>
         <spv3:Main />
     </Window.DataContext>
-    <TabControl Margin="25">
-        <TabItem Margin="0,0,0,50">
-            <spv3:HomeUserControl/>
+    <TabControl Margin="25"
+                Background="Transparent">
+        <TabItem>
+            <spv3:HomeUserControl Margin="0,0,0,50"/>
         </TabItem>
     </TabControl>
-</Window>
+</Controls:MetroWindow>
