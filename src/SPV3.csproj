@@ -72,17 +72,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Home.cs" />
-    <Compile Include="HomeUserControl.xaml.cs">
-      <DependentUpon>HomeUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Main.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Paths.cs" />
-    <Page Include="HomeUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

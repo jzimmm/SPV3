@@ -18,10 +18,25 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using SPV3.Annotations;
+using static System.Reflection.Assembly;
+
 namespace SPV3
 {
-  public class Main
+  public class Main : INotifyPropertyChanged
   {
-    //
+    public string Version        => GetEntryAssembly()?.GetName().Version.Major.ToString("D4");
+    public string VersionString  => $"Version {Version}";
+    public string VersionAddress => $"https://github.com/yumiris/SPV3/tree/build-{Version}";
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    [NotifyPropertyChangedInvocator]
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
   }
 }

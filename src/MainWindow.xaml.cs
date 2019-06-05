@@ -18,6 +18,9 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using System.Diagnostics;
+using System.Windows.Input;
+
 namespace SPV3
 {
   /// <summary>
@@ -31,6 +34,11 @@ namespace SPV3
     {
       InitializeComponent();
       _main = (Main) DataContext;
+    }
+
+    private void ViewVersion(object sender, MouseButtonEventArgs e)
+    {
+      Process.Start(_main.VersionAddress);
     }
   }
 }
