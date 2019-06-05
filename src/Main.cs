@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright (c) 2019 Emilian Roman
  * 
  * This software is provided 'as-is', without any express or implied
@@ -18,20 +18,34 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-using System.Windows;
+using System.ComponentModel;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using SPV3.Annotations;
 
 namespace SPV3
 {
-  /// <summary>
-  ///   Interaction logic for MainWindow.xaml
-  /// </summary>
-  public partial class MainWindow
+  public class Main : INotifyPropertyChanged
   {
-    private readonly Main _main;
+    private string _version = $"Version {Assembly.GetEntryAssembly()?.GetName().Version.Major:D4}";
 
-    public MainWindow()
+    public string Version
     {
-      _main = (Main) DataContext;
+      get => _version;
+      set
+      {
+        if (value == _version) return;
+        _version = value;
+        OnPropertyChanged();
+      }
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    [NotifyPropertyChangedInvocator]
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
   }
 }

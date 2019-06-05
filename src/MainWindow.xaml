@@ -40,6 +40,9 @@
     <Window.Background>
         <ImageBrush ImageSource="Assets/background.jpg"/>
     </Window.Background>
+    <Window.DataContext>
+        <spv3:Main/>
+    </Window.DataContext>
     <TabControl Margin="25"
                 Background="Transparent">
         <TabItem>

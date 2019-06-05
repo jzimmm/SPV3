@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Diagnostics;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using static System.Reflection.Assembly;
 
 namespace SPV3
 {
-    /// <summary>
-    /// Interaction logic for HomeUserControl.xaml
-    /// </summary>
-    public partial class HomeUserControl : UserControl
+  /// <summary>
+  ///   Interaction logic for HomeUserControl.xaml
+  /// </summary>
+  public partial class HomeUserControl : UserControl
+  {
+    public HomeUserControl()
     {
-        public HomeUserControl()
-        {
-            InitializeComponent();
-        }
+      InitializeComponent();
     }
+
+    private void ViewVersion(object sender, MouseButtonEventArgs e)
+    {
+      Process.Start($"https://github.com/yumiris/SPV3/tree/build-{GetEntryAssembly()?.GetName().Version.Major:D4}");
+    }
+  }
 }
