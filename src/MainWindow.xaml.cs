@@ -27,38 +27,6 @@ namespace SPV3
   /// </summary>
   public partial class MainWindow
   {
-    private readonly Main _main;
-
-    public MainWindow()
-    {
-      InitializeComponent();
-      _main = (Main) DataContext;
-      _main.Initialise();
-    }
-
-    private void Load(object sender, RoutedEventArgs e)
-    {
-      _main.Start();
-    }
-
-    private void LoadWindow(object sender, RoutedEventArgs e)
-    {
-      _main.StartWindow();
-    }
-
-    private void Settings(object sender, RoutedEventArgs e)
-    {
-      new SettingsWindow().Show();
-    }
-
-    private void Installer(object sender, RoutedEventArgs e)
-    {
-      new InstallerWindow().Show();
-    }
-
-    private void Compiler(object sender, RoutedEventArgs e)
-    {
-      new CompilerWindow().Show();
-    }
+    //
   }
 }
