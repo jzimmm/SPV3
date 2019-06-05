@@ -19,6 +19,7 @@
  */
 
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Input;
 
 namespace SPV3
@@ -34,11 +35,17 @@ namespace SPV3
     {
       InitializeComponent();
       _main = (Main) DataContext;
+      _main.Initialise();
     }
 
     private void ViewVersion(object sender, MouseButtonEventArgs e)
     {
-      Process.Start(_main.VersionAddress);
+      Process.Start(_main.Version.Address);
+    }
+
+    private void ViewUpdate(object sender, MouseButtonEventArgs e)
+    {
+      MainTabControl.SelectedItem = UpdateTabItem;
     }
   }
 }

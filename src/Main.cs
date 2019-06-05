@@ -18,25 +18,190 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using SPV3.Annotations;
 using static System.Reflection.Assembly;
 
 namespace SPV3
 {
-  public class Main : INotifyPropertyChanged
+  public class Main
   {
-    public string Version        => GetEntryAssembly()?.GetName().Version.Major.ToString("D4");
-    public string VersionString  => $"Version {Version}";
-    public string VersionAddress => $"https://github.com/yumiris/SPV3/tree/build-{Version}";
+    public MainVersion Version { get; set; } = new MainVersion();
+    public MainUpdate  Update  { get; set; } = new MainUpdate();
+    public MainError   Error   { get; set; } = new MainError();
 
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    [NotifyPropertyChangedInvocator]
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    public void Initialise()
     {
-      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+      try
+      {
+        Version.Initialise();
+        Update.Initialise();
+      }
+      catch (Exception e)
+      {
+        Error.Visibility = Visibility.Visible;
+        Error.Content    = e.Message;
+      }
+    }
+
+    public class MainUpdate : INotifyPropertyChanged
+    {
+      private Visibility _visibility = Visibility.Collapsed;
+      private string     _content;
+      private string _address;
+
+      public Visibility Visibility
+      {
+        get => _visibility;
+        set
+        {
+          if (value == _visibility) return;
+          _visibility = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public string Content
+      {
+        get => _content;
+        set
+        {
+          if (value == _content) return;
+          _content = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public string Address
+      {
+        get => _address;
+        set
+        {
+          if (value == _address) return;
+          _address = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public void Initialise()
+      {
+        try
+        {
+          Content    = "Update 10 available!";
+          Visibility = Visibility.Visible;
+        }
+        catch (Exception)
+        {
+          Visibility = Visibility.Collapsed;
+          throw;
+        }
+      }
+
+      public event PropertyChangedEventHandler PropertyChanged;
+
+      [NotifyPropertyChangedInvocator]
+      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+      {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+      }
+    }
+
+    public class MainVersion : INotifyPropertyChanged
+    {
+      private int    _current;
+      private string _content;
+      private string _address;
+
+      public int Current
+      {
+        get => _current;
+        set
+        {
+          if (value == _current) return;
+          _current = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public string Content
+      {
+        get => _content;
+        set
+        {
+          if (value == _content) return;
+          _content = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public string Address
+      {
+        get => _address;
+        set
+        {
+          if (value == _address) return;
+          _address = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public void Initialise()
+      {
+        var versionMajor = GetEntryAssembly()?.GetName().Version.Major;
+
+        if (versionMajor == null) return;
+
+        Current = (int) versionMajor;
+        Content = $"Version {Current:D4}";
+        Address = $"https://github.com/yumiris/SPV3/tree/build-{Current:D4}";
+      }
+
+      public event PropertyChangedEventHandler PropertyChanged;
+
+      [NotifyPropertyChangedInvocator]
+      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+      {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+      }
+    }
+
+    public class MainError : INotifyPropertyChanged
+    {
+      private Visibility _visibility = Visibility.Collapsed;
+      private string     _content;
+
+      public Visibility Visibility
+      {
+        get => _visibility;
+        set
+        {
+          if (value == _visibility) return;
+          _visibility = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public string Content
+      {
+        get => _content;
+        set
+        {
+          if (value == _content) return;
+          _content = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public event PropertyChangedEventHandler PropertyChanged;
+
+      [NotifyPropertyChangedInvocator]
+      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+      {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+      }
     }
   }
 }
