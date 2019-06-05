@@ -72,6 +72,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HomeUserControl.xaml.cs">
+      <DependentUpon>HomeUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Update.cs" />
     <Compile Include="Main.cs" />
@@ -84,6 +87,10 @@
       <DependentUpon>UpdateUserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="CompilerWindow.xaml" />
+    <Page Include="HomeUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InstallerWindow.xaml" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
