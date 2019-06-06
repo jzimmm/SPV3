@@ -43,7 +43,12 @@ namespace SPV3
       Process.Start(_main.Version.Address);
     }
 
-    private void ViewUpdate(object sender, MouseButtonEventArgs e)
+    private void ViewLatest(object sender, MouseButtonEventArgs e)
+    {
+      Process.Start(_main.Update.Address);
+    }
+
+    private void Update(object sender, RoutedEventArgs routedEventArgs)
     {
       MainTabControl.SelectedItem = UpdateTabItem;
     }

@@ -20,6 +20,8 @@
 
 using System;
 using System.ComponentModel;
+using System.IO;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using HXE;
@@ -73,9 +75,12 @@ namespace SPV3
 
     public class MainUpdate : INotifyPropertyChanged
     {
+      private const string Header = "https://dist.n2.network/spv3/HEADER.txt";
+
       private Visibility _visibility = Visibility.Collapsed;
       private string     _content;
       private string     _address;
+      private string     _download;
 
       public Visibility Visibility
       {
@@ -110,12 +115,36 @@ namespace SPV3
         }
       }
 
+      public string Download
+      {
+        get => _download;
+        set
+        {
+          if (value == _download) return;
+          _download = value;
+          OnPropertyChanged();
+        }
+      }
+
       public void Initialise()
       {
         try
         {
-          Content    = "Update 10 available!";
-          Visibility = Visibility.Visible;
+          using (var wr = (HttpWebResponse) WebRequest.Create(Header).GetResponse())
+          using (var rs = wr.GetResponseStream())
+          using (var sr = new StreamReader(rs
+                                           ?? throw new Exception("Could not get response stream.")))
+          {
+            var serverVersion = int.Parse(sr.ReadLine()?.TrimEnd()
+                                          ?? throw new Exception("Could not infer server-side version."));
+
+            var clientVersion = GetEntryAssembly().GetName().Version.Major;
+
+            Content    = $"Latest - {serverVersion:D4}";
+            Visibility = serverVersion > clientVersion ? Visibility.Visible : Visibility.Collapsed;
+            Download   = sr.ReadLine()?.TrimEnd() ?? throw new Exception("Could not infer update ZIP.");
+            Address    = $"https://github.com/yumiris/SPV3/tree/build-{serverVersion:D4}";
+          }
         }
         catch (Exception)
         {

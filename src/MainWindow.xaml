@@ -59,49 +59,29 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <!-- Version -->
+                <!-- Versions -->
                 <StackPanel Grid.Column="0"
                             Grid.Row="0"
                             HorizontalAlignment="Left"
-                            VerticalAlignment="Top">
-                    <Label Content="{Binding Version.Content}"
-                           PreviewMouseDown="ViewVersion">
-                        <Label.Style>
-                            <Style TargetType="{x:Type Label}">
-                                <Setter Property="Foreground" Value="#3FFFFFFF" />
-
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Foreground" Value="#6FFFFFFF" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Label.Style>
-                    </Label>
-                </StackPanel>
-
-                <!-- Updates -->
-                <StackPanel Grid.Column="1"
-                            Grid.Row="0"
-                            HorizontalAlignment="Right"
                             VerticalAlignment="Top"
-                            Visibility="{Binding Update.Visibility}">
-                    <Label Content="{Binding Update.Content}"
-                           PreviewMouseDown="ViewUpdate">
-                        <Label.Style>
-                            <Style TargetType="{x:Type Label}">
-                                <Setter Property="Foreground" Value="#BFFFFFFF" />
-                                <Setter Property="Background" Value="#BF008000" />
+                            Orientation="Vertical">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type Label}">
+                            <Setter Property="Foreground" Value="#3FFFFFFF" />
 
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="Green" />
-                                        <Setter Property="Foreground" Value="White" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Label.Style>
-                    </Label>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="#6FFFFFFF" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <Label Content="{Binding Version.Content}"
+                           PreviewMouseDown="ViewVersion" />
+                    <Label Visibility="{Binding Update.Visibility}"
+                           Content="{Binding Update.Content}"
+                           PreviewMouseDown="ViewLatest" />
                 </StackPanel>
 
                 <!-- Main -->
@@ -130,6 +110,12 @@
                             </Style.Triggers>
                         </Style>
                     </StackPanel.Resources>
+
+                    <!-- Update SPV3 Loader -->
+                    <Button Visibility="{Binding Update.Visibility}"
+                            Click="Update">
+                        Update SPV3 Loader
+                    </Button>
 
                     <!-- Load SPV3 -->
                     <Button Visibility="{Binding Load.Visibility}">
@@ -181,10 +167,12 @@
                 </StackPanel>
             </Grid>
         </TabItem>
-        
+
         <!-- Update -->
         <TabItem x:Name="UpdateTabItem">
-            <Label>
+            <Label Foreground="White"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
                 To update the loader, please download from the following link and extract the contents to your SPV3
                 folder.
             </Label>
