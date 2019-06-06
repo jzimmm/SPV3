@@ -118,7 +118,8 @@
                     </Button>
 
                     <!-- Load SPV3 -->
-                    <Button Visibility="{Binding Load.Visibility}">
+                    <Button Visibility="{Binding Load.Visibility}"
+                            Click="Load">
                         Load SPV3
                     </Button>
 

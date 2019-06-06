@@ -25,6 +25,7 @@ using System.Net;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using HXE;
+using HXE.HCE;
 using SPV3.Annotations;
 using static System.IO.File;
 using static System.IO.Path;
@@ -49,7 +50,9 @@ namespace SPV3
         Load.Visibility = Visibility.Collapsed;
 
         if (Exists(Combine("data", Paths.Manifest)))
+        {
           Install.Visibility = Visibility.Visible;
+        }
         else
         {
           Error.Content    = "Please ensure this loader is in the appropriate SPV3 folder.";
@@ -69,18 +72,36 @@ namespace SPV3
       catch (Exception e)
       {
         Error.Visibility = Visibility.Visible;
-        Error.Content    = "Update error - " + e.Message;
+        Error.Content    = "Update error: " + e.Message.ToLower();
       }
+    }
+
+    public void Invoke()
+    {
+      try
+      {
+        Kernel.Bootstrap(Executable.Detect());
+      }
+      catch (Exception e)
+      {
+        Error.Content    = "Load error: " + e.Message.ToLower();
+        Error.Visibility = Visibility.Visible;
+      }
+    }
+
+    public void Quit()
+    {
+      Environment.Exit(0);
     }
 
     public class MainUpdate : INotifyPropertyChanged
     {
       private const string Header = "https://dist.n2.network/spv3/HEADER.txt";
+      private       string _address;
+      private       string _content;
+      private       string _download;
 
       private Visibility _visibility = Visibility.Collapsed;
-      private string     _content;
-      private string     _address;
-      private string     _download;
 
       public Visibility Visibility
       {
@@ -126,6 +147,8 @@ namespace SPV3
         }
       }
 
+      public event PropertyChangedEventHandler PropertyChanged;
+
       public void Initialise()
       {
         try
@@ -153,8 +176,6 @@ namespace SPV3
         }
       }
 
-      public event PropertyChangedEventHandler PropertyChanged;
-
       [NotifyPropertyChangedInvocator]
       protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
       {
@@ -164,9 +185,9 @@ namespace SPV3
 
     public class MainVersion : INotifyPropertyChanged
     {
-      private int    _current;
-      private string _content;
       private string _address;
+      private string _content;
+      private int    _current;
 
       public int Current
       {
@@ -201,6 +222,8 @@ namespace SPV3
         }
       }
 
+      public event PropertyChangedEventHandler PropertyChanged;
+
       public void Initialise()
       {
         var versionMajor = GetEntryAssembly()?.GetName().Version.Major;
@@ -212,8 +235,6 @@ namespace SPV3
         Address = $"https://github.com/yumiris/SPV3/tree/build-{Current:D4}";
       }
 
-      public event PropertyChangedEventHandler PropertyChanged;
-
       [NotifyPropertyChangedInvocator]
       protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
       {
@@ -223,8 +244,8 @@ namespace SPV3
 
     public class MainError : INotifyPropertyChanged
     {
-      private Visibility _visibility = Visibility.Collapsed;
       private string     _content;
+      private Visibility _visibility = Visibility.Collapsed;
 
       public Visibility Visibility
       {
@@ -303,11 +324,6 @@ namespace SPV3
       {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
       }
-    }
-
-    public void Quit()
-    {
-      Environment.Exit(0);
     }
   }
 }

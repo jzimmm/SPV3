@@ -48,6 +48,11 @@ namespace SPV3
       Process.Start(_main.Update.Address);
     }
 
+    private void Load(object sender, RoutedEventArgs e)
+    {
+      _main.Invoke();
+    }
+
     private void Quit(object sender, RoutedEventArgs e)
     {
       _main.Quit();
