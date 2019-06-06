@@ -304,5 +304,10 @@ namespace SPV3
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
       }
     }
+
+    public void Quit()
+    {
+      Environment.Exit(0);
+    }
   }
 }

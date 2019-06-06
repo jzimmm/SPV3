@@ -143,7 +143,7 @@
                     </Button>
 
                     <!-- Exit -->
-                    <Button>
+                    <Button Click="Quit">
                         Exit
                     </Button>
                 </StackPanel>

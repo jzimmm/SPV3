@@ -48,6 +48,11 @@ namespace SPV3
       Process.Start(_main.Update.Address);
     }
 
+    private void Quit(object sender, RoutedEventArgs e)
+    {
+      _main.Quit();
+    }
+
     private void Update(object sender, RoutedEventArgs routedEventArgs)
     {
       MainTabControl.SelectedItem = UpdateTabItem;
