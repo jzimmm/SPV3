@@ -73,6 +73,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Main.cs" />
+    <Compile Include="Main.Error.cs" />
+    <Compile Include="Main.Install.cs" />
+    <Compile Include="Main.Load.cs" />
+    <Compile Include="Main.Update.cs" />
+    <Compile Include="Main.Version.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

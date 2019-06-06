@@ -19,28 +19,24 @@
  */
 
 using System;
-using System.ComponentModel;
-using System.IO;
-using System.Net;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using HXE;
-using HXE.HCE;
-using SPV3.Annotations;
 using static System.IO.File;
 using static System.IO.Path;
-using static System.Reflection.Assembly;
 
 namespace SPV3
 {
-  public class Main
+  public partial class Main
   {
-    public MainVersion Version { get; set; } = new MainVersion();
-    public MainUpdate  Update  { get; set; } = new MainUpdate();
-    public MainError   Error   { get; set; } = new MainError();
-    public MainInstall Install { get; set; } = new MainInstall();
-    public MainLoad    Load    { get; set; } = new MainLoad();
+    public MainVersion Version { get; set; } = new MainVersion(); /* gets spv3 loader version     */
+    public MainUpdate  Update  { get; set; } = new MainUpdate();  /* gets spv3 loader updates     */
+    public MainError   Error   { get; set; } = new MainError();   /* catches & shows exceptions   */
+    public MainInstall Install { get; set; } = new MainInstall(); /* checks & allows installation */
+    public MainLoad    Load    { get; set; } = new MainLoad();    /* checks & allows loading      */
 
+    /// <summary>
+    ///   Wrapper for subclass initialisation methods.
+    /// </summary>
     public void Initialise()
     {
       Version.Initialise();
@@ -76,6 +72,9 @@ namespace SPV3
       }
     }
 
+    /// <summary>
+    ///   Wrapper for the load routine with UI support.
+    /// </summary>
     public void Invoke()
     {
       try
@@ -89,246 +88,12 @@ namespace SPV3
       }
     }
 
+    /// <summary>
+    ///   Successfully exits the SPV3 loader.
+    /// </summary>
     public void Quit()
     {
       Environment.Exit(0);
-    }
-
-    public class MainUpdate : INotifyPropertyChanged
-    {
-      private const string Header = "https://dist.n2.network/spv3/HEADER.txt";
-      private       string _address;
-      private       string _content;
-      private       string _download;
-
-      private Visibility _visibility = Visibility.Collapsed;
-
-      public Visibility Visibility
-      {
-        get => _visibility;
-        set
-        {
-          if (value == _visibility) return;
-          _visibility = value;
-          OnPropertyChanged();
-        }
-      }
-
-      public string Content
-      {
-        get => _content;
-        set
-        {
-          if (value == _content) return;
-          _content = value;
-          OnPropertyChanged();
-        }
-      }
-
-      public string Address
-      {
-        get => _address;
-        set
-        {
-          if (value == _address) return;
-          _address = value;
-          OnPropertyChanged();
-        }
-      }
-
-      public string Download
-      {
-        get => _download;
-        set
-        {
-          if (value == _download) return;
-          _download = value;
-          OnPropertyChanged();
-        }
-      }
-
-      public event PropertyChangedEventHandler PropertyChanged;
-
-      public void Initialise()
-      {
-        try
-        {
-          using (var wr = (HttpWebResponse) WebRequest.Create(Header).GetResponse())
-          using (var rs = wr.GetResponseStream())
-          using (var sr = new StreamReader(rs
-                                           ?? throw new Exception("Could not get response stream.")))
-          {
-            var serverVersion = int.Parse(sr.ReadLine()?.TrimEnd()
-                                          ?? throw new Exception("Could not infer server-side version."));
-
-            var clientVersion = GetEntryAssembly().GetName().Version.Major;
-
-            Content    = $"Latest - {serverVersion:D4}";
-            Visibility = serverVersion > clientVersion ? Visibility.Visible : Visibility.Collapsed;
-            Download   = sr.ReadLine()?.TrimEnd() ?? throw new Exception("Could not infer update ZIP.");
-            Address    = $"https://github.com/yumiris/SPV3/tree/build-{serverVersion:D4}";
-          }
-        }
-        catch (Exception)
-        {
-          Visibility = Visibility.Collapsed;
-          throw;
-        }
-      }
-
-      [NotifyPropertyChangedInvocator]
-      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-      {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-      }
-    }
-
-    public class MainVersion : INotifyPropertyChanged
-    {
-      private string _address;
-      private string _content;
-      private int    _current;
-
-      public int Current
-      {
-        get => _current;
-        set
-        {
-          if (value == _current) return;
-          _current = value;
-          OnPropertyChanged();
-        }
-      }
-
-      public string Content
-      {
-        get => _content;
-        set
-        {
-          if (value == _content) return;
-          _content = value;
-          OnPropertyChanged();
-        }
-      }
-
-      public string Address
-      {
-        get => _address;
-        set
-        {
-          if (value == _address) return;
-          _address = value;
-          OnPropertyChanged();
-        }
-      }
-
-      public event PropertyChangedEventHandler PropertyChanged;
-
-      public void Initialise()
-      {
-        var versionMajor = GetEntryAssembly()?.GetName().Version.Major;
-
-        if (versionMajor == null) return;
-
-        Current = (int) versionMajor;
-        Content = $"Version {Current:D4}";
-        Address = $"https://github.com/yumiris/SPV3/tree/build-{Current:D4}";
-      }
-
-      [NotifyPropertyChangedInvocator]
-      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-      {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-      }
-    }
-
-    public class MainError : INotifyPropertyChanged
-    {
-      private string     _content;
-      private Visibility _visibility = Visibility.Collapsed;
-
-      public Visibility Visibility
-      {
-        get => _visibility;
-        set
-        {
-          if (value == _visibility) return;
-          _visibility = value;
-          OnPropertyChanged();
-        }
-      }
-
-      public string Content
-      {
-        get => _content;
-        set
-        {
-          if (value == _content) return;
-          _content = value;
-          OnPropertyChanged();
-        }
-      }
-
-      public event PropertyChangedEventHandler PropertyChanged;
-
-      [NotifyPropertyChangedInvocator]
-      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-      {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-      }
-    }
-
-    public class MainLoad : INotifyPropertyChanged
-    {
-      private Visibility _visibility = Visibility.Collapsed;
-
-      public Visibility Visibility
-      {
-        get => _visibility;
-        set
-        {
-          if (value == _visibility) return;
-          _visibility = value;
-          OnPropertyChanged();
-        }
-      }
-
-      public void Invoke()
-      {
-        Kernel.Bootstrap(Executable.Detect());
-      }
-
-      public event PropertyChangedEventHandler PropertyChanged;
-
-      [NotifyPropertyChangedInvocator]
-      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-      {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-      }
-    }
-
-    public class MainInstall : INotifyPropertyChanged
-    {
-      private Visibility _visibility = Visibility.Collapsed;
-
-      public Visibility Visibility
-      {
-        get => _visibility;
-        set
-        {
-          if (value == _visibility) return;
-          _visibility = value;
-          OnPropertyChanged();
-        }
-      }
-
-      public event PropertyChangedEventHandler PropertyChanged;
-
-      [NotifyPropertyChangedInvocator]
-      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-      {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-      }
     }
   }
 }
