@@ -22,7 +22,10 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using HXE;
 using SPV3.Annotations;
+using static System.IO.File;
+using static System.IO.Path;
 using static System.Reflection.Assembly;
 
 namespace SPV3
@@ -32,18 +35,39 @@ namespace SPV3
     public MainVersion Version { get; set; } = new MainVersion();
     public MainUpdate  Update  { get; set; } = new MainUpdate();
     public MainError   Error   { get; set; } = new MainError();
+    public MainInstall Install { get; set; } = new MainInstall();
+    public MainLoad    Load    { get; set; } = new MainLoad();
 
     public void Initialise()
     {
+      Version.Initialise();
+
+      if (!Exists(Paths.HCE.Executable))
+      {
+        Load.Visibility = Visibility.Collapsed;
+
+        if (Exists(Combine("data", Paths.Manifest)))
+          Install.Visibility = Visibility.Visible;
+        else
+        {
+          Error.Content    = "Please ensure this loader is in the appropriate SPV3 folder.";
+          Error.Visibility = Visibility.Visible;
+        }
+
+        return;
+      }
+
+      Load.Visibility    = Visibility.Visible;
+      Install.Visibility = Visibility.Collapsed;
+
       try
       {
-        Version.Initialise();
         Update.Initialise();
       }
       catch (Exception e)
       {
         Error.Visibility = Visibility.Visible;
-        Error.Content    = e.Message;
+        Error.Content    = "Update error - " + e.Message;
       }
     }
 
@@ -51,7 +75,7 @@ namespace SPV3
     {
       private Visibility _visibility = Visibility.Collapsed;
       private string     _content;
-      private string _address;
+      private string     _address;
 
       public Visibility Visibility
       {
@@ -191,6 +215,54 @@ namespace SPV3
         {
           if (value == _content) return;
           _content = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public event PropertyChangedEventHandler PropertyChanged;
+
+      [NotifyPropertyChangedInvocator]
+      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+      {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+      }
+    }
+
+    public class MainLoad : INotifyPropertyChanged
+    {
+      private Visibility _visibility = Visibility.Collapsed;
+
+      public Visibility Visibility
+      {
+        get => _visibility;
+        set
+        {
+          if (value == _visibility) return;
+          _visibility = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public event PropertyChangedEventHandler PropertyChanged;
+
+      [NotifyPropertyChangedInvocator]
+      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+      {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+      }
+    }
+
+    public class MainInstall : INotifyPropertyChanged
+    {
+      private Visibility _visibility = Visibility.Collapsed;
+
+      public Visibility Visibility
+      {
+        get => _visibility;
+        set
+        {
+          if (value == _visibility) return;
+          _visibility = value;
           OnPropertyChanged();
         }
       }
