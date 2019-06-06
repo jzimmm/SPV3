@@ -132,6 +132,11 @@
                         Settings
                     </Button>
 
+                    <!-- About -->
+                    <Button>
+                        About
+                    </Button>
+
                     <!-- Help -->
                     <Button>
                         Help
