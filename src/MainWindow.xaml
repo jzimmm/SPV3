@@ -35,22 +35,25 @@
                       ShowCloseButton="False"
                       ShowMinButton="False"
                       BorderThickness="0"
+                      Background="Black"
                       Width="960"
                       Height="540">
-    <Window.Background>
-        <ImageBrush ImageSource="Assets/background.jpg" />
-    </Window.Background>
     <Window.DataContext>
         <spv3:Main />
     </Window.DataContext>
     <TabControl Name="MainTabControl"
-                Margin="25"
-                Background="Transparent">
+                Background="Transparent"
+                Padding="0"
+                Margin="0,0,0,5"
+                BorderThickness="0">
         <!-- Main -->
         <TabItem>
-            <Grid Margin="0,0,0,0">
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="Assets/background.jpg" />
+                </Grid.Background>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="230" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
@@ -64,7 +67,8 @@
                             Grid.Row="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            Orientation="Vertical">
+                            Orientation="Vertical"
+                            Margin="25">
                     <StackPanel.Resources>
                         <Style TargetType="{x:Type Label}">
                             <Setter Property="Foreground" Value="#3FFFFFFF" />
@@ -88,7 +92,9 @@
                 <StackPanel Grid.Column="0"
                             Grid.Row="1"
                             HorizontalAlignment="Left"
-                            VerticalAlignment="Bottom">
+                            VerticalAlignment="Bottom"
+                            Width="175"
+                            Margin="25">
                     <StackPanel.Resources>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Background" Value="#0CFFFFFF" />
@@ -96,7 +102,7 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type Button}">
-                                        <Border Background="{TemplateBinding Background}" Padding="25,5"
+                                        <Border Background="{TemplateBinding Background}" Padding="25,10"
                                                 Margin="0,1,0,0">
                                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Border>
@@ -154,7 +160,8 @@
                             Grid.Row="1"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
-                            Visibility="{Binding Error.Visibility}">
+                            Visibility="{Binding Error.Visibility}"
+                            Margin="25">
                     <Label Content="{Binding Error.Content}">
                         <Label.Style>
                             <Style TargetType="{x:Type Label}">
