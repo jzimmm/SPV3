@@ -80,7 +80,7 @@ namespace SPV3
     {
       try
       {
-        Kernel.Bootstrap(Executable.Detect());
+        Load.Invoke();
       }
       catch (Exception e)
       {
@@ -291,6 +291,11 @@ namespace SPV3
           _visibility = value;
           OnPropertyChanged();
         }
+      }
+
+      public void Invoke()
+      {
+        Kernel.Bootstrap(Executable.Detect());
       }
 
       public event PropertyChangedEventHandler PropertyChanged;
