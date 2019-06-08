@@ -18,6 +18,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using System.Threading.Tasks;
+
 namespace SPV3
 {
   public partial class Version
@@ -27,8 +29,8 @@ namespace SPV3
 
     public void Initialise()
     {
-      Assembly.Initialise();
-      Upstream.Initialise();
+      Task.Run(() => { Assembly.Initialise(); });
+      Task.Run(() => { Upstream.Initialise(); });
     }
   }
 }

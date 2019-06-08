@@ -29,8 +29,6 @@ namespace SPV3
 {
   public partial class Version_UserControl : UserControl
   {
-    public event EventHandler Update;
-
     private readonly Version _version;
 
     public Version_UserControl()
@@ -39,6 +37,8 @@ namespace SPV3
       _version = (Version) DataContext;
       _version.Initialise();
     }
+
+    public event EventHandler Update;
 
     private void Assembly(object sender, MouseButtonEventArgs e)
     {
