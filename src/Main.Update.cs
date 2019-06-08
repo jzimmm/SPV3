@@ -36,7 +36,6 @@ namespace SPV3
       private const string Header = "https://dist.n2.network/spv3/HEADER.txt";
       private       string _address;
       private       string _content;
-      private       string _download;
 
       private Visibility _visibility = Visibility.Collapsed;
 
@@ -73,17 +72,6 @@ namespace SPV3
         }
       }
 
-      public string Download
-      {
-        get => _download;
-        set
-        {
-          if (value == _download) return;
-          _download = value;
-          OnPropertyChanged();
-        }
-      }
-
       public event PropertyChangedEventHandler PropertyChanged;
 
       public void Initialise()
@@ -100,10 +88,9 @@ namespace SPV3
 
             var clientVersion = Assembly.GetEntryAssembly().GetName().Version.Major;
 
-            Content    = $"Latest - {serverVersion:D4}";
+            Content    = $"Latest - {serverVersion:D4} (download here)";
             Visibility = serverVersion > clientVersion ? Visibility.Visible : Visibility.Collapsed;
-            Download   = sr.ReadLine()?.TrimEnd() ?? throw new Exception("Could not infer update ZIP.");
-            Address    = $"https://github.com/yumiris/SPV3/tree/build-{serverVersion:D4}";
+            Address    = sr.ReadLine()?.TrimEnd() ?? throw new Exception("Could not infer update ZIP.");
           }
         }
         catch (Exception)

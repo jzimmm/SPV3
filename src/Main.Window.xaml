@@ -127,12 +127,6 @@
                     <Image Source="Assets/logo.png"
                            Margin="0,0,0,10" />
 
-                    <!-- Update SPV3 Loader -->
-                    <Button Visibility="{Binding Update.Visibility}"
-                            Click="Update">
-                        Update SPV3 Loader
-                    </Button>
-
                     <!-- Load SPV3 -->
                     <Button Visibility="{Binding Load.Visibility}"
                             Click="Load">
@@ -190,16 +184,6 @@
                     </Label>
                 </StackPanel>
             </Grid>
-        </TabItem>
-
-        <!-- Update -->
-        <TabItem x:Name="UpdateTabItem">
-            <Label Foreground="White"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center">
-                To update the loader, please download from the following link and extract the contents to your SPV3
-                folder.
-            </Label>
         </TabItem>
 
         <!-- Report -->

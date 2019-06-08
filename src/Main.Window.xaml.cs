@@ -61,11 +61,6 @@ namespace SPV3
       _main.Quit();
     }
 
-    private void Update(object sender, RoutedEventArgs routedEventArgs)
-    {
-      MainTabControl.SelectedItem = UpdateTabItem;
-    }
-
     private void Report(object sender, MouseButtonEventArgs e)
     {
       MainTabControl.SelectedItem = ReportTabItem;
