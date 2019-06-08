@@ -78,7 +78,12 @@
     <Compile Include="Main.Load.cs" />
     <Compile Include="Main.Update.cs" />
     <Compile Include="Main.Version.cs" />
+    <Compile Include="Paths.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Report.cs" />
+    <Compile Include="ReportUserControl.xaml.cs">
+      <DependentUpon>ReportUserControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -91,6 +96,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ReportUserControl.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

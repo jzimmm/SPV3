@@ -18,6 +18,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
@@ -36,6 +37,8 @@ namespace SPV3
       InitializeComponent();
       _main = (Main) DataContext;
       _main.Initialise();
+
+      ReportUserControl.Home += Main;
     }
 
     private void ViewVersion(object sender, MouseButtonEventArgs e)
@@ -61,6 +64,16 @@ namespace SPV3
     private void Update(object sender, RoutedEventArgs routedEventArgs)
     {
       MainTabControl.SelectedItem = UpdateTabItem;
+    }
+
+    private void Report(object sender, MouseButtonEventArgs e)
+    {
+      MainTabControl.SelectedItem = ReportTabItem;
+    }
+
+    private void Main(object sender, EventArgs e)
+    {
+      MainTabControl.SelectedItem = MainTabItem;
     }
   }
 }

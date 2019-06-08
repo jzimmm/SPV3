@@ -47,7 +47,7 @@
                 Margin="0,0,0,5"
                 BorderThickness="0">
         <!-- Main -->
-        <TabItem>
+        <TabItem Name="MainTabItem">
             <Grid>
                 <Grid.Background>
                     <ImageBrush ImageSource="Assets/background.jpg" />
@@ -165,7 +165,8 @@
                             VerticalAlignment="Bottom"
                             Visibility="{Binding Error.Visibility}"
                             Margin="25">
-                    <Label Content="{Binding Error.Content}">
+                    <Label Content="{Binding Error.Content}"
+                           MouseLeftButtonUp="Report">
                         <Label.Style>
                             <Style TargetType="{x:Type Label}">
                                 <Setter Property="Foreground" Value="#BFFFFFFF" />
@@ -192,6 +193,11 @@
                 To update the loader, please download from the following link and extract the contents to your SPV3
                 folder.
             </Label>
+        </TabItem>
+
+        <!-- Report -->
+        <TabItem x:Name="ReportTabItem">
+            <spv3:ReportUserControl x:Name="ReportUserControl" />
         </TabItem>
     </TabControl>
 </Controls:MetroWindow>

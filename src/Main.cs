@@ -20,7 +20,6 @@
 
 using System;
 using System.Windows;
-using HXE;
 using static System.IO.File;
 using static System.IO.Path;
 
@@ -41,11 +40,11 @@ namespace SPV3
     {
       Version.Initialise();
 
-      if (!Exists(Paths.HCE.Executable))
+      if (!Exists(HXE.Paths.HCE.Executable))
       {
         Load.Visibility = Visibility.Collapsed;
 
-        if (Exists(Combine("data", Paths.Manifest)))
+        if (Exists(Combine("data", HXE.Paths.Manifest)))
         {
           Install.Visibility = Visibility.Visible;
         }
@@ -83,7 +82,9 @@ namespace SPV3
       }
       catch (Exception e)
       {
-        Error.Content    = "Load error: " + e.Message.ToLower();
+        WriteAllText(Paths.Exception, e.ToString());
+
+        Error.Content    = $"Load error: {e.Message.ToLower()}\n\nClick here for more information.";
         Error.Visibility = Visibility.Visible;
       }
     }
