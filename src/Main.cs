@@ -66,8 +66,7 @@ namespace SPV3
       }
       catch (Exception e)
       {
-        Error.Visibility = Visibility.Visible;
-        Error.Content    = "Update error: " + e.Message.ToLower();
+        Exception(e, "Update error");
       }
     }
 
@@ -82,10 +81,7 @@ namespace SPV3
       }
       catch (Exception e)
       {
-        WriteAllText(Paths.Exception, e.ToString());
-
-        Error.Content    = $"Load error: {e.Message.ToLower()}\n\nClick here for more information.";
-        Error.Visibility = Visibility.Visible;
+        Exception(e, "Loading error");
       }
     }
 
@@ -95,6 +91,14 @@ namespace SPV3
     public void Quit()
     {
       Environment.Exit(0);
+    }
+
+    private void Exception(Exception e, string description)
+    {
+      WriteAllText(Paths.Exception, e.ToString());
+
+      Error.Visibility = Visibility.Visible;
+      Error.Content    = $"{description}: {e.Message.ToLower()}\n\nClick here for more information.";
     }
   }
 }
