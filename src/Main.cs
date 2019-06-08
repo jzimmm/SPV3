@@ -28,8 +28,6 @@ namespace SPV3
 {
   public partial class Main
   {
-    public MainVersion Version { get; set; } = new MainVersion(); /* gets spv3 loader version     */
-    public MainUpdate  Update  { get; set; } = new MainUpdate();  /* gets spv3 loader updates     */
     public MainError   Error   { get; set; } = new MainError();   /* catches & shows exceptions   */
     public MainInstall Install { get; set; } = new MainInstall(); /* checks & allows installation */
     public MainLoad    Load    { get; set; } = new MainLoad();    /* checks & allows loading      */
@@ -40,7 +38,6 @@ namespace SPV3
     public void Initialise()
     {
       Directory.CreateDirectory(Paths.Directory); /* create data directory */
-      Version.Initialise();                       /* check for latest update */
 
       /**
        * We determine installation or initiation mode:
@@ -71,15 +68,6 @@ namespace SPV3
 
       Load.Visibility    = Visibility.Visible;
       Install.Visibility = Visibility.Collapsed;
-
-      try
-      {
-        Update.Initialise();
-      }
-      catch (Exception e)
-      {
-        Exception(e, "Update error");
-      }
     }
 
     /// <summary>

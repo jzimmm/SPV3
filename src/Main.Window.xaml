@@ -63,30 +63,11 @@
                 </Grid.RowDefinitions>
 
                 <!-- Versions -->
-                <StackPanel Grid.Column="0"
-                            Grid.Row="0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Orientation="Vertical"
-                            Margin="25">
-                    <StackPanel.Resources>
-                        <Style TargetType="{x:Type Label}">
-                            <Setter Property="Foreground" Value="#3FFFFFFF" />
-
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Foreground" Value="#6FFFFFFF" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Resources>
-
-                    <Label Content="{Binding Version.Content}"
-                           MouseLeftButtonUp="ViewVersion" />
-                    <Label Visibility="{Binding Update.Visibility}"
-                           Content="{Binding Update.Content}"
-                           MouseLeftButtonUp="ViewLatest" />
-                </StackPanel>
+                <spv3:Version_UserControl Grid.Column="0"
+                                          Grid.Row="0"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Top"
+                                          Margin="25" />
 
                 <!-- Social -->
                 <spv3:Social_UserControl Grid.Column="1"

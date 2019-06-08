@@ -19,27 +19,28 @@
  */
 
 using System.ComponentModel;
-using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using SPV3.Annotations;
 
 namespace SPV3
 {
-  public partial class Main
+  public partial class Version
   {
-    public class MainVersion : INotifyPropertyChanged
+    public class VersionAssembly : INotifyPropertyChanged
     {
       private string _address;
       private string _content;
-      private int    _current;
 
-      public int Current
+      private Visibility _visibility = Visibility.Collapsed;
+
+      public Visibility Visibility
       {
-        get => _current;
+        get => _visibility;
         set
         {
-          if (value == _current) return;
-          _current = value;
+          if (value == _visibility) return;
+          _visibility = value;
           OnPropertyChanged();
         }
       }
@@ -70,13 +71,15 @@ namespace SPV3
 
       public void Initialise()
       {
-        var versionMajor = Assembly.GetEntryAssembly()?.GetName().Version.Major;
+        var versionMajor = System.Reflection.Assembly.GetEntryAssembly()?.GetName().Version.Major;
 
         if (versionMajor == null) return;
 
-        Current = (int) versionMajor;
-        Content = $"Version {Current:D4}";
-        Address = $"https://github.com/yumiris/SPV3/tree/build-{Current:D4}";
+        var current = (int) versionMajor;
+
+        Content    = $"Version {current:D4}";
+        Address    = $"https://github.com/yumiris/SPV3/tree/build-{current:D4}";
+        Visibility = Visibility.Visible;
       }
 
       [NotifyPropertyChangedInvocator]

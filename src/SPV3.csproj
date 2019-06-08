@@ -76,8 +76,6 @@
     <Compile Include="Main.Error.cs" />
     <Compile Include="Main.Install.cs" />
     <Compile Include="Main.Load.cs" />
-    <Compile Include="Main.Update.cs" />
-    <Compile Include="Main.Version.cs" />
     <Compile Include="Main.Window.xaml.cs">
       <DependentUpon>Main.Window.xaml</DependentUpon>
     </Compile>
@@ -90,6 +88,12 @@
     <Compile Include="Social.UserControl.xaml.cs">
       <DependentUpon>Social.UserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Version.Assembly.cs" />
+    <Compile Include="Version.cs" />
+    <Compile Include="Version.Upstream.cs" />
+    <Compile Include="Version.UserControl.xaml.cs">
+      <DependentUpon>Version.UserControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="Main.Window.xaml" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -97,6 +101,7 @@
     </Compile>
     <Page Include="Report.UserControl.xaml" />
     <Page Include="Social.UserControl.xaml" />
+    <Page Include="Version.UserControl.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

@@ -22,16 +22,15 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using SPV3.Annotations;
 
 namespace SPV3
 {
-  public partial class Main
+  public partial class Version
   {
-    public class MainUpdate : INotifyPropertyChanged
+    public class VersionUpstream : INotifyPropertyChanged
     {
       private const string Header = "https://dist.n2.network/spv3/HEADER.txt";
       private       string _address;
@@ -86,7 +85,7 @@ namespace SPV3
             var serverVersion = int.Parse(sr.ReadLine()?.TrimEnd()
                                           ?? throw new Exception("Could not infer server-side version."));
 
-            var clientVersion = Assembly.GetEntryAssembly().GetName().Version.Major;
+            var clientVersion = System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Major;
 
             Content    = $"Latest - {serverVersion:D4} (download here)";
             Visibility = serverVersion > clientVersion ? Visibility.Visible : Visibility.Collapsed;
@@ -96,7 +95,6 @@ namespace SPV3
         catch (Exception)
         {
           Visibility = Visibility.Collapsed;
-          throw;
         }
       }
 

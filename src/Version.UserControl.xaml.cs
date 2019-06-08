@@ -18,46 +18,31 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-using System;
-using System.Windows;
+using System.Diagnostics;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace SPV3
 {
-  /// <summary>
-  ///   Interaction logic for MainWindow.xaml
-  /// </summary>
-  public partial class Main_Window
+  public partial class Version_UserControl : UserControl
   {
-    private readonly Main _main;
+    private readonly Version _version;
 
-    public Main_Window()
+    public Version_UserControl()
     {
       InitializeComponent();
-      _main = (Main) DataContext;
-      _main.Initialise();
-
-      ReportUserControl.Home += Main;
+      _version = (Version) DataContext;
+      _version.Initialise();
     }
 
-    private void Load(object sender, RoutedEventArgs e)
+    private void Assembly(object sender, MouseButtonEventArgs e)
     {
-      _main.Invoke();
+      Process.Start(_version.Assembly.Address);
     }
 
-    private void Quit(object sender, RoutedEventArgs e)
+    private void Upstream(object sender, MouseButtonEventArgs e)
     {
-      _main.Quit();
-    }
-
-    private void Report(object sender, MouseButtonEventArgs e)
-    {
-      MainTabControl.SelectedItem = ReportTabItem;
-    }
-
-    private void Main(object sender, EventArgs e)
-    {
-      MainTabControl.SelectedItem = MainTabItem;
+      Process.Start(_version.Upstream.Address);
     }
   }
 }
