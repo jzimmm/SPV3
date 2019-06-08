@@ -19,6 +19,7 @@
  */
 
 using System;
+using System.IO;
 using System.Windows;
 using static System.IO.File;
 using static System.IO.Path;
@@ -38,7 +39,18 @@ namespace SPV3
     /// </summary>
     public void Initialise()
     {
-      Version.Initialise();
+      Directory.CreateDirectory(Paths.Directory); /* create data directory */
+      Version.Initialise();                       /* check for latest update */
+
+      /**
+       * We determine installation or initiation mode:
+       * 
+       * -   initiation: The HCE executable exists, thus SPV3 is ready to be loaded.
+       * -   installation: The manifest exists, thus SPV3 is ready to be installed.
+       *
+       * If neither of the above apply in this scenario, then we prohibit loading or installing; instead, we prompt the
+       * user to place the loader in the current directory.
+       */
 
       if (!Exists(HXE.Paths.HCE.Executable))
       {

@@ -18,7 +18,9 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using System;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using HXE;
@@ -48,7 +50,14 @@ namespace SPV3
 
       public void Invoke()
       {
-        Kernel.Bootstrap(Executable.Detect());
+        Kernel.Bootstrap(new Executable
+        {
+          Path = Path.Combine(Environment.CurrentDirectory, HXE.Paths.HCE.Executable),
+          Profile = new Executable.ProfileOptions
+          {
+            Path = Paths.Directory
+          }
+        });
       }
 
       [NotifyPropertyChangedInvocator]
