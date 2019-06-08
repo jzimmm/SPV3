@@ -18,7 +18,10 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using System;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -26,6 +29,8 @@ namespace SPV3
 {
   public partial class Version_UserControl : UserControl
   {
+    public event EventHandler Update;
+
     private readonly Version _version;
 
     public Version_UserControl()
@@ -40,9 +45,15 @@ namespace SPV3
       Process.Start(_version.Assembly.Address);
     }
 
-    private void Upstream(object sender, MouseButtonEventArgs e)
+    private async void Upstream(object sender, MouseButtonEventArgs e)
     {
-      Process.Start(_version.Upstream.Address);
+      Update?.Invoke(sender, e);
+
+      await Task.Run(() =>
+      {
+        Thread.Sleep(2500);
+        Process.Start(_version.Upstream.Address);
+      });
     }
   }
 }

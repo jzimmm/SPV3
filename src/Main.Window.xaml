@@ -63,7 +63,8 @@
                 </Grid.RowDefinitions>
 
                 <!-- Versions -->
-                <spv3:Version_UserControl Grid.Column="0"
+                <spv3:Version_UserControl x:Name="VersionUserControl"
+                                          Grid.Column="0"
                                           Grid.Row="0"
                                           HorizontalAlignment="Left"
                                           VerticalAlignment="Top"
@@ -170,6 +171,15 @@
         <!-- Report -->
         <TabItem x:Name="ReportTabItem">
             <spv3:Report_UserControl x:Name="ReportUserControl" />
+        </TabItem>
+
+        <!-- Update -->
+        <TabItem x:Name="UpdateTabItem">
+            <Label Foreground="White"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
+                To install the update, please extract the contents of the folder to the following folder.
+            </Label>
         </TabItem>
     </TabControl>
 </Controls:MetroWindow>
