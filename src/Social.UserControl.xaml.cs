@@ -18,41 +18,32 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Diagnostics;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SPV3
 {
-  public partial class ReportUserControl : UserControl
+  public partial class Social_UserControl : UserControl
   {
-    private readonly Report _report;
-
-    public ReportUserControl()
+    public Social_UserControl()
     {
       InitializeComponent();
-      _report = (Report) DataContext;
-      _report.Initialise();
     }
 
-    public event EventHandler Home;
-
-    private async void Copy(object sender, RoutedEventArgs e)
+    private void Reddit(object sender, MouseButtonEventArgs e)
     {
-      Clipboard.SetText(_report.Stack);
-
-      CopyButton.Content = "Copied!";
-
-      await Task.Run(() => { Thread.Sleep(3000); });
-
-      CopyButton.Content = "Copy to clipboard";
+      Process.Start("https://www.reddit.com/r/halospv3");
     }
 
-    private void Back(object sender, RoutedEventArgs e)
+    private void Twitter(object sender, MouseButtonEventArgs e)
     {
-      Home?.Invoke(sender, e);
+      Process.Start("https://twitter.com/halo_spv3");
+    }
+
+    private void Discord(object sender, MouseButtonEventArgs e)
+    {
+      Process.Start("https://discord.gg/Cdh5b8z");
     }
   }
 }

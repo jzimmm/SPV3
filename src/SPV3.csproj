@@ -78,29 +78,25 @@
     <Compile Include="Main.Load.cs" />
     <Compile Include="Main.Update.cs" />
     <Compile Include="Main.Version.cs" />
+    <Compile Include="Main.Window.xaml.cs">
+      <DependentUpon>Main.Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paths.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Report.cs" />
-    <Compile Include="ReportUserControl.xaml.cs">
-      <DependentUpon>ReportUserControl.xaml</DependentUpon>
+    <Compile Include="Report.UserControl.xaml.cs">
+      <DependentUpon>Report.UserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SocialUserControl.xaml.cs">
-      <DependentUpon>SocialUserControl.xaml</DependentUpon>
+    <Compile Include="Social.UserControl.xaml.cs">
+      <DependentUpon>Social.UserControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Page Include="Main.Window.xaml" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="ReportUserControl.xaml" />
-    <Page Include="SocialUserControl.xaml" />
+    <Page Include="Report.UserControl.xaml" />
+    <Page Include="Social.UserControl.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

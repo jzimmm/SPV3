@@ -18,32 +18,62 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using System;
 using System.Diagnostics;
-using System.Windows.Controls;
+using System.Windows;
 using System.Windows.Input;
 
 namespace SPV3
 {
-  public partial class SocialUserControl : UserControl
+  /// <summary>
+  ///   Interaction logic for MainWindow.xaml
+  /// </summary>
+  public partial class Main_Window
   {
-    public SocialUserControl()
+    private readonly Main _main;
+
+    public Main_Window()
     {
       InitializeComponent();
+      _main = (Main) DataContext;
+      _main.Initialise();
+
+      ReportUserControl.Home += Main;
     }
 
-    private void Reddit(object sender, MouseButtonEventArgs e)
+    private void ViewVersion(object sender, MouseButtonEventArgs e)
     {
-      Process.Start("https://www.reddit.com/r/halospv3");
+      Process.Start(_main.Version.Address);
     }
 
-    private void Twitter(object sender, MouseButtonEventArgs e)
+    private void ViewLatest(object sender, MouseButtonEventArgs e)
     {
-      Process.Start("https://twitter.com/halo_spv3");
+      Process.Start(_main.Update.Address);
     }
 
-    private void Discord(object sender, MouseButtonEventArgs e)
+    private void Load(object sender, RoutedEventArgs e)
     {
-      Process.Start("https://discord.gg/Cdh5b8z");
+      _main.Invoke();
+    }
+
+    private void Quit(object sender, RoutedEventArgs e)
+    {
+      _main.Quit();
+    }
+
+    private void Update(object sender, RoutedEventArgs routedEventArgs)
+    {
+      MainTabControl.SelectedItem = UpdateTabItem;
+    }
+
+    private void Report(object sender, MouseButtonEventArgs e)
+    {
+      MainTabControl.SelectedItem = ReportTabItem;
+    }
+
+    private void Main(object sender, EventArgs e)
+    {
+      MainTabControl.SelectedItem = MainTabItem;
     }
   }
 }
