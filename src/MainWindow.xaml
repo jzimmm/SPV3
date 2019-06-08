@@ -82,10 +82,10 @@
                     </StackPanel.Resources>
 
                     <Label Content="{Binding Version.Content}"
-                           PreviewMouseDown="ViewVersion" />
+                           MouseLeftButtonUp="ViewVersion" />
                     <Label Visibility="{Binding Update.Visibility}"
                            Content="{Binding Update.Content}"
-                           PreviewMouseDown="ViewLatest" />
+                           MouseLeftButtonUp="ViewLatest" />
                 </StackPanel>
 
                 <!-- Main -->
