@@ -88,6 +88,13 @@
                            MouseLeftButtonUp="ViewLatest" />
                 </StackPanel>
 
+                <!-- Social -->
+                <spv3:SocialUserControl Grid.Column="1"
+                                        Grid.Row="0"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Top"
+                                        Margin="25" />
+
                 <!-- Main -->
                 <StackPanel Grid.Column="0"
                             Grid.Row="1"
