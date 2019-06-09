@@ -93,6 +93,11 @@ namespace SPV3
           bw.Write(Window);
         }
 
+        /* padding */
+        {
+          bw.Write(new byte[256 - ms.Position]);
+        }
+
         ms.Position = 0;
         ms.CopyTo(fs);
       }
