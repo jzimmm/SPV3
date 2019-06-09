@@ -48,17 +48,23 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <Grid>
+    <Grid Width="960"
+          Height="540">
         <Grid.Background>
             <ImageBrush ImageSource="Assets/background_install.jpg" />
         </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="225" /> <!-- top      -->
+            <RowDefinition Height="115" /> <!-- contents -->
+            <RowDefinition Height="*" />   <!-- bottom   -->
+        </Grid.RowDefinitions>
 
-        <StackPanel HorizontalAlignment="Center"
+        <!-- Installation -->
+        <StackPanel Grid.Row="1"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Width="640">
-
-            <Label Margin="0,120,0,0"
-                   Content="Location:"
+            <Label Content="Location:"
                    Foreground="White" />
             <DockPanel>
                 <Button DockPanel.Dock="Right"
@@ -81,11 +87,14 @@
                         Content="Install"
                         IsEnabled="{Binding CanInstall}" />
             </DockPanel>
-
-            <Label Content="{Binding Status}"
-                   Margin="0,75,0,0"
-                   Foreground="White"
-                   HorizontalAlignment="Center" />
         </StackPanel>
+
+        <!-- Status -->
+        <Label Grid.Row="2"
+               Content="{Binding Status}"
+               Foreground="White"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Bottom"
+               Margin="0,0,0,50" />
     </Grid>
 </UserControl>
