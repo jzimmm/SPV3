@@ -44,6 +44,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.Resources>
                 <Style TargetType="{x:Type Label}">
@@ -62,6 +63,7 @@
                 </Style>
             </Grid.Resources>
 
+            <!-- SPV3 Loader -->
             <StackPanel Grid.Column="0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
@@ -94,7 +96,45 @@
                 </DockPanel>
             </StackPanel>
 
+            <!-- Shaders -->
             <StackPanel Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
+                        <Setter Property="Width" Value="150" />
+                    </Style>
+                </StackPanel.Resources>
+
+                <Label Content="SPV3 Shaders"
+                       HorizontalAlignment="Center"
+                       Width="Auto"
+                       FontSize="16" />
+
+                <DockPanel>
+                    <Label Content="Dynamic Lens Flares:" />
+                    <CheckBox IsChecked="{Binding Kernel.Shaders.DynamicLensFlares}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Volumetric Lighting:" />
+                    <CheckBox IsChecked="{Binding Kernel.Shaders.Volumetrics}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Lens Dirt:" />
+                    <CheckBox IsChecked="{Binding Kernel.Shaders.LensDirt}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="HUDv5 Visor:" />
+                    <CheckBox IsChecked="{Binding Kernel.Shaders.HudVisor}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Film Grain:" />
+                    <CheckBox IsChecked="{Binding Kernel.Shaders.FilmGrain}" />
+                </DockPanel>
+            </StackPanel>
+
+            <!-- HXE Kernel -->
+            <StackPanel Grid.Column="2"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
                 <StackPanel.Resources>
@@ -109,36 +149,36 @@
                        FontSize="16" />
 
                 <DockPanel>
-                    <Label Content="Enable SPV3 Kernel Mode:" />
-                    <CheckBox IsChecked="{Binding Kernel.EnableSpv3KernelMode}" />
+                    <Label Content="Enable: SPV3 Kernel Mode:" />
+                    <CheckBox IsChecked="{Binding Kernel.Core.EnableSpv3KernelMode}" />
                 </DockPanel>
                 <DockPanel>
-                    <Label Content="Enable SPV3 Legacy Mode:" />
-                    <CheckBox IsChecked="{Binding Kernel.EnableSpv3LegacyMode}" />
+                    <Label Content="Enable: SPV3 Legacy Mode:" />
+                    <CheckBox IsChecked="{Binding Kernel.Core.EnableSpv3LegacyMode}" />
                 </DockPanel>
                 <DockPanel>
-                    <Label Content="Skip Verify Main Assets:" />
-                    <CheckBox IsChecked="{Binding Kernel.SkipVerifyMainAssets}" />
+                    <Label Content="Skip: Verify Main Assets:" />
+                    <CheckBox IsChecked="{Binding Kernel.Core.SkipVerifyMainAssets}" />
                 </DockPanel>
                 <DockPanel>
-                    <Label Content="Skip Invoke Core Tweaks:" />
-                    <CheckBox IsChecked="{Binding Kernel.SkipInvokeCoreTweaks}" />
+                    <Label Content="Skip: Invoke Core Tweaks:" />
+                    <CheckBox IsChecked="{Binding Kernel.Core.SkipInvokeCoreTweaks}" />
                 </DockPanel>
                 <DockPanel>
-                    <Label Content="Skip Resume Checkpoint:" />
-                    <CheckBox IsChecked="{Binding Kernel.SkipResumeCheckpoint}" />
+                    <Label Content="Skip: Resume Checkpoint:" />
+                    <CheckBox IsChecked="{Binding Kernel.Core.SkipResumeCheckpoint}" />
                 </DockPanel>
                 <DockPanel>
-                    <Label Content="Skip Set Shaders Config:" />
-                    <CheckBox IsChecked="{Binding Kernel.SkipSetShadersConfig}" />
+                    <Label Content="Skip: Set Shaders Config:" />
+                    <CheckBox IsChecked="{Binding Kernel.Core.SkipSetShadersConfig}" />
                 </DockPanel>
                 <DockPanel>
-                    <Label Content="Skip Invoke Executable:" />
-                    <CheckBox IsChecked="{Binding Kernel.SkipInvokeExecutable}" />
+                    <Label Content="Skip: Invoke Executable:" />
+                    <CheckBox IsChecked="{Binding Kernel.Core.SkipInvokeExecutable}" />
                 </DockPanel>
                 <DockPanel>
-                    <Label Content="Skip Patch LAA:" />
-                    <CheckBox IsChecked="{Binding Kernel.SkipPatchLargeAAware}" />
+                    <Label Content="Skip: Patch LAA:" />
+                    <CheckBox IsChecked="{Binding Kernel.Core.SkipPatchLargeAAware}" />
                 </DockPanel>
             </StackPanel>
         </Grid>
