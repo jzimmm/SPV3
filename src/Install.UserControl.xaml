@@ -28,10 +28,31 @@
     <UserControl.DataContext>
         <local:Install />
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#7F000000" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" Padding="25,10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#BF000000" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="Assets/background_install.jpg" />
         </Grid.Background>
+
         <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Width="640">
@@ -46,6 +67,7 @@
                         Click="Browse" />
                 <TextBox Text="{Binding Target}"
                          VerticalContentAlignment="Center"
+                         Margin="1,0,0,0"
                          BorderThickness="0" />
             </DockPanel>
 
