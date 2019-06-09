@@ -72,6 +72,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Configuration.UserControl.xaml.cs">
+      <DependentUpon>Configuration.UserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Context.cs" />
     <Compile Include="Install.cs" />
     <Compile Include="Install.UserControl.xaml.cs">
@@ -99,6 +103,7 @@
     <Compile Include="Version.UserControl.xaml.cs">
       <DependentUpon>Version.UserControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="Configuration.UserControl.xaml" />
     <Page Include="Install.UserControl.xaml" />
     <Page Include="Main.Window.xaml" />
     <Compile Include="App.xaml.cs">

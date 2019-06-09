@@ -69,7 +69,7 @@ namespace SPV3
         if (value == _target) return;
         _target = value;
         OnPropertyChanged();
-        
+
         /**
          * Check validity of the specified target value.
          */
@@ -104,7 +104,7 @@ namespace SPV3
       /**
        * Determine if the current environment fulfils the installation requirements.
        */
-      
+
       var manifest = (Manifest) Path.Combine(_source, HXE.Paths.Manifest);
 
       if (manifest.Exists())

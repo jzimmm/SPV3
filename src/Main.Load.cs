@@ -27,6 +27,7 @@ using HXE;
 using HXE.HCE;
 using HXE.SPV3;
 using SPV3.Annotations;
+using File = System.IO.File;
 
 namespace SPV3
 {
@@ -53,7 +54,8 @@ namespace SPV3
       {
         var openSauce = (OpenSauce) HXE.Paths.Custom.OpenSauce(Paths.Directory); /* for menu fixes    */
         var chimera   = (Chimera) HXE.Paths.Custom.Chimera(Paths.Directory);     /* for enhancements  */
-        var hxe       = (Configuration) HXE.Paths.Configuration;                 /* for compatibility */
+        var hxe       = (HXE.Configuration) HXE.Paths.Configuration;             /* for compatibility */
+        var spv3      = new Configuration();                                     /* for configuration */
 
         if (openSauce.Exists())
           openSauce.Load();
@@ -83,12 +85,21 @@ namespace SPV3
         hxe.Kernel.EnableSpv3KernelMode = true; /* hxe spv3 compatibility */
         hxe.Save();                             /* saves to %APPDATA%\HXE */
 
+        if (File.Exists(Paths.Configuration))
+          spv3.Load();
+
         Kernel.Bootstrap(new Executable
         {
           Path = Path.Combine(Environment.CurrentDirectory, HXE.Paths.HCE.Executable),
           Profile = new Executable.ProfileOptions
           {
             Path = Paths.Directory
+          },
+          Video = new Executable.VideoOptions
+          {
+            Width  = spv3.Width,
+            Height = spv3.Height,
+            Window = spv3.Window
           }
         });
       }

@@ -37,8 +37,9 @@ namespace SPV3
       _main = (Main) DataContext;
       _main.Initialise();
 
-      ReportUserControl.Home    += Main;
-      VersionUserControl.Update += Update;
+      ConfigurationUserControl.Home += Main;
+      ReportUserControl.Home        += Main;
+      VersionUserControl.Update     += Update;
     }
 
     private void Load(object sender, RoutedEventArgs e)
@@ -69,6 +70,11 @@ namespace SPV3
     private void Install(object sender, RoutedEventArgs e)
     {
       MainTabControl.SelectedItem = InstallTabItem;
+    }
+
+    private void Settings(object sender, RoutedEventArgs e)
+    {
+      MainTabControl.SelectedItem = ConfigurationTabItem;
     }
   }
 }

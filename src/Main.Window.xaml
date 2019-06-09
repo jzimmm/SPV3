@@ -122,7 +122,7 @@
                     </Button>
 
                     <!-- Settings -->
-                    <Button>
+                    <Button Click="Settings">
                         Settings
                     </Button>
 
@@ -167,6 +167,11 @@
                     </Label>
                 </StackPanel>
             </Grid>
+        </TabItem>
+
+        <!-- Configuration -->
+        <TabItem x:Name="ConfigurationTabItem">
+            <spv3:Configuration_UserControl x:Name="ConfigurationUserControl" />
         </TabItem>
 
         <!-- Report -->
