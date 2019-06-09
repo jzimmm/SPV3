@@ -28,24 +28,66 @@
     <UserControl.DataContext>
         <local:Configuration />
     </UserControl.DataContext>
-    <Grid>
+    <Grid Width="960"
+          Height="540">
         <Grid.Background>
             <ImageBrush ImageSource="Assets/background_settings.jpg" />
         </Grid.Background>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0"
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Settings -->
+        <StackPanel Grid.Row="0"
+                    Width="320"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-            <TextBox Text="{Binding Width}" />
-            <TextBox Text="{Binding Height}" />
-            <CheckBox IsChecked="{Binding Window}" />
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="Width" Value="75" />
+                </Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                </Style>
+                <Style TargetType="{x:Type DockPanel}">
+                    <Setter Property="Margin" Value="0,1,0,0" />
+                </Style>
+            </StackPanel.Resources>
+
+            <Label Content="SPV3 Loader"
+                   HorizontalAlignment="Center"
+                   Width="Auto"
+                   FontSize="16" />
+
+            <DockPanel>
+                <Label Content="Width:" />
+                <TextBox Text="{Binding Width}" />
+            </DockPanel>
+            <DockPanel>
+                <Label Content="Height:" />
+                <TextBox Text="{Binding Height}" />
+            </DockPanel>
+            <DockPanel>
+                <Label Content="Window:" />
+                <CheckBox IsChecked="{Binding Window}" />
+            </DockPanel>
+        </StackPanel>
+
+        <!-- Save -->
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Height="30"
+                    Margin="25">
             <Button Content="Save"
-                    Click="Save" />
+                    Click="Save"
+                    Width="100" />
             <Button Content="Cancel"
-                    Click="Cancel" />
+                    Click="Cancel"
+                    Width="100"
+                    Margin="1,0,0,0" />
         </StackPanel>
     </Grid>
 </UserControl>
