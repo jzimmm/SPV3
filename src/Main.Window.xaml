@@ -116,7 +116,8 @@
                     </Button>
 
                     <!-- Install SPV3 -->
-                    <Button Visibility="{Binding Install.Visibility}">
+                    <Button Visibility="{Binding Install.Visibility}"
+                            Click="Install">
                         Install SPV3
                     </Button>
 
@@ -171,6 +172,11 @@
         <!-- Report -->
         <TabItem x:Name="ReportTabItem">
             <spv3:Report_UserControl x:Name="ReportUserControl" />
+        </TabItem>
+
+        <!-- Install -->
+        <TabItem x:Name="InstallTabItem">
+            <spv3:Install_UserControl x:Name="InstallUserControl" />
         </TabItem>
 
         <!-- Update -->

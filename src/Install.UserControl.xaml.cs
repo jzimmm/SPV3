@@ -18,57 +18,28 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-using System;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace SPV3
 {
-  /// <summary>
-  ///   Interaction logic for MainWindow.xaml
-  /// </summary>
-  public partial class Main_Window
+  public partial class Install_UserControl : UserControl
   {
-    private readonly Main _main;
+    private readonly Install _install;
 
-    public Main_Window()
+    public Install_UserControl()
     {
       InitializeComponent();
-      _main = (Main) DataContext;
-      _main.Initialise();
-
-      ReportUserControl.Home    += Main;
-      VersionUserControl.Update += Update;
+      _install = (Install) DataContext;
+      _install.Initialise();
     }
 
-    private void Load(object sender, RoutedEventArgs e)
+    private async void Install(object sender, RoutedEventArgs e)
     {
-      _main.Invoke();
-    }
-
-    private void Quit(object sender, RoutedEventArgs e)
-    {
-      _main.Quit();
-    }
-
-    private void Report(object sender, MouseButtonEventArgs e)
-    {
-      MainTabControl.SelectedItem = ReportTabItem;
-    }
-
-    private void Main(object sender, EventArgs e)
-    {
-      MainTabControl.SelectedItem = MainTabItem;
-    }
-
-    private void Update(object sender, EventArgs e)
-    {
-      MainTabControl.SelectedItem = UpdateTabItem;
-    }
-
-    private void Install(object sender, RoutedEventArgs e)
-    {
-      MainTabControl.SelectedItem = InstallTabItem;
+      InstallButton.Content = "Installing...";
+      await Task.Run(() => _install.Commit());
+      InstallButton.Content = "Install";
     }
   }
 }
