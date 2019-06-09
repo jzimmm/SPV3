@@ -19,7 +19,6 @@
  */
 
 using System;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -33,9 +32,7 @@ namespace SPV3
     {
       InitializeComponent();
       _configuration = (Configuration) DataContext;
-
-      if (File.Exists(Paths.Configuration))
-        _configuration.Load();
+      _configuration.Load();
     }
 
     public event EventHandler Home;

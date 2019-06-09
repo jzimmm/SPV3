@@ -55,7 +55,7 @@ namespace SPV3
         var openSauce = (OpenSauce) HXE.Paths.Custom.OpenSauce(Paths.Directory); /* for menu fixes    */
         var chimera   = (Chimera) HXE.Paths.Custom.Chimera(Paths.Directory);     /* for enhancements  */
         var hxe       = (HXE.Configuration) HXE.Paths.Configuration;             /* for compatibility */
-        var spv3      = new Configuration();                                     /* for configuration */
+        var spv3      = new Configuration.ConfigurationLoader();                 /* for configuration */
 
         if (openSauce.Exists())
           openSauce.Load();

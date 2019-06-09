@@ -64,19 +64,19 @@
 
             <DockPanel>
                 <Label Content="Width:" />
-                <TextBox Text="{Binding Width}" />
+                <TextBox Text="{Binding Loader.Width}" />
             </DockPanel>
             <DockPanel>
                 <Label Content="Height:" />
-                <TextBox Text="{Binding Height}" />
+                <TextBox Text="{Binding Loader.Height}" />
             </DockPanel>
             <DockPanel Margin="0,5,0,0">
                 <Label Content="Window:" />
-                <CheckBox IsChecked="{Binding Window}" />
+                <CheckBox IsChecked="{Binding Loader.Window}" />
             </DockPanel>
             <DockPanel>
                 <Label Content="Gamma:" />
-                <CheckBox IsChecked="{Binding Gamma}" />
+                <CheckBox IsChecked="{Binding Loader.Gamma}" />
             </DockPanel>
         </StackPanel>
 

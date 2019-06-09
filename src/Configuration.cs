@@ -18,132 +18,23 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-using System.ComponentModel;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Text;
-using SPV3.Annotations;
-using static System.IO.FileAccess;
-using static System.IO.FileMode;
-using static System.Windows.Forms.Screen;
 
 namespace SPV3
 {
-  public class Configuration : INotifyPropertyChanged
+  public partial class Configuration
   {
-    private ushort _height = (ushort) PrimaryScreen.Bounds.Height;
-    private ushort _width  = (ushort) PrimaryScreen.Bounds.Width;
-    private bool   _window;
-    private bool   _gamma;
-
-    public bool Window
-    {
-      get => _window;
-      set
-      {
-        if (value == _window) return;
-        _window = value;
-        OnPropertyChanged();
-      }
-    }
-
-    public ushort Width
-    {
-      get => _width;
-      set
-      {
-        if (value == _width) return;
-        _width = value;
-        OnPropertyChanged();
-      }
-    }
-
-    public ushort Height
-    {
-      get => _height;
-      set
-      {
-        if (value == _height) return;
-        _height = value;
-        OnPropertyChanged();
-      }
-    }
-
-    public bool Gamma
-    {
-      get => _gamma;
-      set
-      {
-        if (value == _gamma) return;
-        _gamma = value;
-        OnPropertyChanged();
-      }
-    }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public void Save()
-    {
-      using (var fs = new FileStream(Paths.Configuration, Create, Write))
-      using (var ms = new MemoryStream(256))
-      using (var bw = new BinaryWriter(ms))
-      {
-        /* signature */
-        {
-          bw.Write(Encoding.Unicode.GetBytes("~yumiris"));
-        }
-
-        /* padding */
-        {
-          bw.Write(new byte[16 - ms.Position]);
-        }
-
-        /* video */
-        {
-          bw.Write(Width);
-          bw.Write(Height);
-          bw.Write(Window);
-          bw.Write(Gamma);
-        }
-
-        /* padding */
-        {
-          bw.Write(new byte[256 - ms.Position]);
-        }
-
-        ms.Position = 0;
-        ms.CopyTo(fs);
-      }
-    }
+    public ConfigurationLoader Loader { get; set; } = new ConfigurationLoader();
 
     public void Load()
     {
-      using (var fs = new FileStream(Paths.Configuration, Open, Read))
-      using (var ms = new MemoryStream(256))
-      using (var br = new BinaryReader(ms))
-      {
-        fs.CopyTo(ms);
-        ms.Position = 0;
-
-        /* padding */
-        {
-          ms.Position += 16 - ms.Position;
-        }
-
-        /* video */
-        {
-          Width  = br.ReadUInt16();
-          Height = br.ReadUInt16();
-          Window = br.ReadBoolean();
-          Gamma  = br.ReadBoolean();
-        }
-      }
+      if (File.Exists(Paths.Configuration))
+        Loader.Load();
     }
 
-    [NotifyPropertyChangedInvocator]
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    public void Save()
     {
-      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+      Loader.Save();
     }
   }
 }

@@ -73,6 +73,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Configuration.cs" />
+    <Compile Include="Configuration.Loader.cs" />
     <Compile Include="Configuration.UserControl.xaml.cs">
       <DependentUpon>Configuration.UserControl.xaml</DependentUpon>
     </Compile>
