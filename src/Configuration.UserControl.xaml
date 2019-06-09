@@ -70,7 +70,7 @@
                 <Label Content="Height:" />
                 <TextBox Text="{Binding Height}" />
             </DockPanel>
-            <DockPanel>
+            <DockPanel Margin="0,5,0,0">
                 <Label Content="Window:" />
                 <CheckBox IsChecked="{Binding Window}" />
             </DockPanel>
