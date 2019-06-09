@@ -48,7 +48,8 @@
                 BorderThickness="0">
         <!-- Main -->
         <TabItem Name="MainTabItem">
-            <Grid>
+            <Grid Width="960"
+                  Height="540">
                 <Grid.Background>
                     <ImageBrush ImageSource="Assets/background.jpg" />
                 </Grid.Background>
@@ -83,7 +84,7 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Bottom"
                             Width="175"
-                            Margin="25">
+                            Margin="25,25,25,35">
                     <StackPanel.Resources>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Background" Value="#0CFFFFFF" />
