@@ -25,16 +25,21 @@ namespace SPV3
   public partial class Configuration
   {
     public ConfigurationLoader Loader { get; set; } = new ConfigurationLoader();
+    public ConfigurationKernel Kernel { get; set; } = new ConfigurationKernel();
 
     public void Load()
     {
       if (File.Exists(Paths.Configuration))
         Loader.Load();
+
+      if (File.Exists(HXE.Paths.Configuration))
+        Kernel.Load();
     }
 
     public void Save()
     {
       Loader.Save();
+      Kernel.Save();
     }
   }
 }
