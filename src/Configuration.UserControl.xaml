@@ -28,14 +28,24 @@
     <UserControl.DataContext>
         <local:Configuration />
     </UserControl.DataContext>
-    <StackPanel HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-        <TextBox Text="{Binding Width}" />
-        <TextBox Text="{Binding Height}" />
-        <CheckBox IsChecked="{Binding Window}" />
-        <Button Content="Save"
-                Click="Save" />
-        <Button Content="Cancel"
-                Click="Cancel" />
-    </StackPanel>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Assets/background_settings.jpg" />
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <TextBox Text="{Binding Width}" />
+            <TextBox Text="{Binding Height}" />
+            <CheckBox IsChecked="{Binding Window}" />
+            <Button Content="Save"
+                    Click="Save" />
+            <Button Content="Cancel"
+                    Click="Cancel" />
+        </StackPanel>
+    </Grid>
 </UserControl>
