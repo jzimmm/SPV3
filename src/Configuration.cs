@@ -34,6 +34,7 @@ namespace SPV3
     private ushort _height = (ushort) PrimaryScreen.Bounds.Height;
     private ushort _width  = (ushort) PrimaryScreen.Bounds.Width;
     private bool   _window;
+    private bool   _gamma;
 
     public bool Window
     {
@@ -68,6 +69,17 @@ namespace SPV3
       }
     }
 
+    public bool Gamma
+    {
+      get => _gamma;
+      set
+      {
+        if (value == _gamma) return;
+        _gamma = value;
+        OnPropertyChanged();
+      }
+    }
+
     public event PropertyChangedEventHandler PropertyChanged;
 
     public void Save()
@@ -91,6 +103,7 @@ namespace SPV3
           bw.Write(Width);
           bw.Write(Height);
           bw.Write(Window);
+          bw.Write(Gamma);
         }
 
         /* padding */
@@ -122,6 +135,7 @@ namespace SPV3
           Width  = br.ReadUInt16();
           Height = br.ReadUInt16();
           Window = br.ReadBoolean();
+          Gamma  = br.ReadBoolean();
         }
       }
     }

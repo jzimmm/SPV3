@@ -74,6 +74,10 @@
                 <Label Content="Window:" />
                 <CheckBox IsChecked="{Binding Window}" />
             </DockPanel>
+            <DockPanel>
+                <Label Content="Gamma:" />
+                <CheckBox IsChecked="{Binding Gamma}" />
+            </DockPanel>
         </StackPanel>
 
         <!-- Save -->

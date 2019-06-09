@@ -97,9 +97,10 @@ namespace SPV3
           },
           Video = new Executable.VideoOptions
           {
-            Width  = spv3.Width,
-            Height = spv3.Height,
-            Window = spv3.Window
+            Width   = spv3.Width,
+            Height  = spv3.Height,
+            Window  = spv3.Window,
+            NoGamma = !spv3.Gamma /* flip boolean */
           }
         });
       }
