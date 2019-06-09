@@ -88,11 +88,13 @@ namespace SPV3
           if (!exists)
             Directory.Delete(Target);
 
-          Status = "Waiting for user to install SPV3.";
+          Status     = "Waiting for user to install SPV3.";
+          CanInstall = true;
         }
         catch (Exception e)
         {
-          Status = "Installation not possible at selected path: " + e.Message.ToLower();
+          Status     = "Installation not possible at selected path: " + e.Message.ToLower();
+          CanInstall = false;
         }
       }
     }
@@ -122,6 +124,8 @@ namespace SPV3
     {
       try
       {
+        CanInstall = false;
+
         var task = new Task(() => { Installer.Install(_source, _target); });
 
         task.Start();
@@ -151,11 +155,13 @@ namespace SPV3
           }
         }
 
-        Status = "Installation has successfully finished!";
+        Status     = "Installation has successfully finished!";
+        CanInstall = true;
       }
       catch (Exception e)
       {
-        Status = e.Message;
+        Status     = e.Message;
+        CanInstall = true;
       }
     }
 

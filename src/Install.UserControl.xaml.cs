@@ -18,9 +18,11 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using System;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Forms;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace SPV3
 {
@@ -35,11 +37,27 @@ namespace SPV3
       _install.Initialise();
     }
 
+    public event EventHandler Home;
+
     private async void Install(object sender, RoutedEventArgs e)
     {
       InstallButton.Content = "Installing...";
       await Task.Run(() => _install.Commit());
       InstallButton.Content = "Install";
+    }
+
+    private void Back(object sender, RoutedEventArgs e)
+    {
+      Home?.Invoke(sender, e);
+    }
+
+    private void Browse(object sender, RoutedEventArgs e)
+    {
+      using (var dialog = new FolderBrowserDialog())
+      {
+        if (dialog.ShowDialog() == DialogResult.OK)
+          _install.Target = dialog.SelectedPath;
+      }
     }
   }
 }

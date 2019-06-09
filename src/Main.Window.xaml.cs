@@ -19,6 +19,7 @@
  */
 
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -39,12 +40,15 @@ namespace SPV3
 
       ConfigurationUserControl.Home += Main;
       ReportUserControl.Home        += Main;
+      InstallUserControl.Home       += Main;
       VersionUserControl.Update     += Update;
     }
 
-    private void Load(object sender, RoutedEventArgs e)
+    private async void Load(object sender, RoutedEventArgs e)
     {
-      _main.Invoke();
+      LoadButton.IsEnabled = false;
+      await Task.Run(() => { _main.Invoke(); });
+      LoadButton.IsEnabled = true;
     }
 
     private void Quit(object sender, RoutedEventArgs e)

@@ -28,15 +28,42 @@
     <UserControl.DataContext>
         <local:Install />
     </UserControl.DataContext>
-    <StackPanel HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-        <TextBox Text="{Binding Target}" />
-        <Button x:Name="InstallButton"
-                Click="Install"
-                Content="Install"
-                IsEnabled="{Binding CanInstall}" />
-        <Label Content="{Binding Status}"
-               Foreground="White"
-               HorizontalAlignment="Center" />
-    </StackPanel>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Assets/background_install.jpg" />
+        </Grid.Background>
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="640">
+
+            <Label Margin="0,120,0,0"
+                   Content="Location:"
+                   Foreground="White" />
+            <DockPanel>
+                <Button DockPanel.Dock="Right"
+                        Margin="1,0,0,0"
+                        Content="Browse"
+                        Click="Browse" />
+                <TextBox Text="{Binding Target}"
+                         VerticalContentAlignment="Center"
+                         BorderThickness="0" />
+            </DockPanel>
+
+            <DockPanel Margin="0,1,0,0">
+                <Button Click="Back">
+                    Go back...
+                </Button>
+                <Button x:Name="InstallButton"
+                        Margin="1,0,0,0"
+                        Click="Install"
+                        Content="Install"
+                        IsEnabled="{Binding CanInstall}" />
+            </DockPanel>
+
+            <Label Content="{Binding Status}"
+                   Margin="0,75,0,0"
+                   Foreground="White"
+                   HorizontalAlignment="Center" />
+        </StackPanel>
+    </Grid>
 </UserControl>
