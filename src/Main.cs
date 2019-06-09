@@ -36,7 +36,8 @@ namespace SPV3
     /// </summary>
     public void Initialise()
     {
-      Directory.CreateDirectory(Paths.Directory); /* create data directory */
+      Directory.CreateDirectory(Paths.Directory);     /* create data directory */
+      Directory.CreateDirectory(HXE.Paths.Directory); /* create hxe directory  */
 
       /**
        * We determine installation or initiation mode:

@@ -25,6 +25,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using HXE;
 using HXE.HCE;
+using HXE.SPV3;
 using SPV3.Annotations;
 
 namespace SPV3
@@ -50,6 +51,38 @@ namespace SPV3
 
       public void Invoke()
       {
+        var openSauce = (OpenSauce) HXE.Paths.Custom.OpenSauce(Paths.Directory); /* for menu fixes    */
+        var chimera   = (Chimera) HXE.Paths.Custom.Chimera(Paths.Directory);     /* for enhancements  */
+        var hxe       = (Configuration) HXE.Paths.Configuration;                 /* for compatibility */
+
+        if (openSauce.Exists())
+          openSauce.Load();
+
+        openSauce.HUD.ShowHUD  = true;   /* fixes menu stretching   */
+        openSauce.HUD.ScaleHUD = true;   /* fixes menu stretching   */
+        openSauce.Camera.CalculateFOV(); /* native field of view    */
+        openSauce.Save();                /* saves to %APPDATA%\SPV3 */
+
+        /**
+         * Since we don't fully support the Chimera binary configuration, we'll manipulate it only when it's available. 
+         */
+
+        if (chimera.Exists())
+        {
+          chimera.Load();
+          chimera.Interpolation        = 9;    /* enhancements            */
+          chimera.AnisotropicFiltering = true; /* enhancements            */
+          chimera.UncapCinematic       = true; /* enhancements            */
+          chimera.BlockLOD             = true; /* enhancements            */
+          chimera.Save();                      /* saves to %APPDATA%\SPV3 */
+        }
+
+        if (hxe.Exists())
+          hxe.Load();
+
+        hxe.Kernel.EnableSpv3KernelMode = true; /* hxe spv3 compatibility */
+        hxe.Save();                             /* saves to %APPDATA%\HXE */
+
         Kernel.Bootstrap(new Executable
         {
           Path = Path.Combine(Environment.CurrentDirectory, HXE.Paths.HCE.Executable),
