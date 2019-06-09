@@ -22,7 +22,6 @@ using System;
 using System.IO;
 using System.Windows;
 using static System.IO.File;
-using static System.IO.Path;
 
 namespace SPV3
 {
@@ -49,25 +48,21 @@ namespace SPV3
        * user to place the loader in the current directory.
        */
 
-      if (!Exists(HXE.Paths.HCE.Executable))
+      switch (Context.Infer())
       {
-        Load.Visibility = Visibility.Collapsed;
-
-        if (Exists(Combine("data", HXE.Paths.Manifest)))
-        {
+        case Context.Type.Load:
+          Load.Visibility = Visibility.Visible;
+          break;
+        case Context.Type.Install:
           Install.Visibility = Visibility.Visible;
-        }
-        else
-        {
-          Error.Content    = "Please ensure this loader is in the appropriate SPV3 folder.";
+          break;
+        case Context.Type.Invalid:
           Error.Visibility = Visibility.Visible;
-        }
-
-        return;
+          Error.Content    = "Please ensure this loader is in the appropriate SPV3 folder.";
+          break;
+        default:
+          throw new ArgumentOutOfRangeException();
       }
-
-      Load.Visibility    = Visibility.Visible;
-      Install.Visibility = Visibility.Collapsed;
     }
 
     /// <summary>

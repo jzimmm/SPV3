@@ -72,6 +72,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Context.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Main.Error.cs" />
     <Compile Include="Main.Install.cs" />

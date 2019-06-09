@@ -30,7 +30,9 @@ namespace SPV3
     public void Initialise()
     {
       Task.Run(() => { Assembly.Initialise(); });
-      Task.Run(() => { Upstream.Initialise(); });
+
+      if (Context.Infer() == Context.Type.Load)
+        Task.Run(() => { Upstream.Initialise(); });
     }
   }
 }
