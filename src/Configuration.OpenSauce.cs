@@ -37,7 +37,7 @@ namespace SPV3
       private bool   _specularLighting;
       private bool   _specularMaps;
 
-      public OpenSauce Configuration { get; set; } = (OpenSauce) global::HXE.Paths.Custom.OpenSauce(Paths.Directory);
+      public OpenSauce Configuration { get; } = (OpenSauce) global::HXE.Paths.Custom.OpenSauce(Paths.Directory);
 
       public bool NormalMaps
       {

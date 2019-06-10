@@ -27,9 +27,9 @@ namespace SPV3
   {
     public partial class ConfigurationHXE
     {
-      public HXE.Configuration       Configuration { get; set; } = (HXE.Configuration) global::HXE.Paths.Configuration;
-      public ConfigurationHXEKernel  Kernel        { get; set; } = new ConfigurationHXEKernel();
-      public ConfigurationHXEShaders Shaders       { get; set; } = new ConfigurationHXEShaders();
+      private HXE.Configuration       Configuration { get; }      = (HXE.Configuration) global::HXE.Paths.Configuration;
+      public  ConfigurationHXEKernel  Kernel        { get; set; } = new ConfigurationHXEKernel();
+      public  ConfigurationHXEShaders Shaders       { get; set; } = new ConfigurationHXEShaders();
 
       public void Save()
       {
