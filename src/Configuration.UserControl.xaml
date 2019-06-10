@@ -204,6 +204,10 @@
                     <Label Content="Depth Fade:" />
                     <CheckBox IsChecked="{Binding OpenSauce.DepthFade}" />
                 </DockPanel>
+                <DockPanel>
+                    <Label Content="Field of View:" />
+                    <TextBox Text="{Binding OpenSauce.FieldOfView}" />
+                </DockPanel>
             </StackPanel>
 
             <!-- HXE Kernel -->

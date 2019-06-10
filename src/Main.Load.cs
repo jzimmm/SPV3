@@ -64,7 +64,6 @@ namespace SPV3
         openSauce.HUD.ScaleHUD                       = true; /* fixes user interface    */
         openSauce.Camera.IgnoreFOVChangeInCinematics = true; /* fixes user interface    */
         openSauce.Camera.IgnoreFOVChangeInMainMenu   = true; /* fixes user interface    */
-        openSauce.Camera.CalculateFOV();                     /* native field of view    */
         openSauce.Save();                                    /* saves to %APPDATA%\SPV3 */
 
         /**
