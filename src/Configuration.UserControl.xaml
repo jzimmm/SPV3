@@ -117,28 +117,28 @@
 
                 <DockPanel>
                     <Label Content="Dynamic Lens Flares:" />
-                    <CheckBox IsChecked="{Binding Shaders.DynamicLensFlares}" />
+                    <CheckBox IsChecked="{Binding HXE.Shaders.DynamicLensFlares}" />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Volumetric Lighting:" />
-                    <CheckBox IsChecked="{Binding Shaders.Volumetrics}" />
+                    <CheckBox IsChecked="{Binding HXE.Shaders.Volumetrics}" />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Lens Dirt:" />
-                    <CheckBox IsChecked="{Binding Shaders.LensDirt}" />
+                    <CheckBox IsChecked="{Binding HXE.Shaders.LensDirt}" />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="HUDv5 Visor:" />
-                    <CheckBox IsChecked="{Binding Shaders.HudVisor}" />
+                    <CheckBox IsChecked="{Binding HXE.Shaders.HudVisor}" />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Film Grain:" />
-                    <CheckBox IsChecked="{Binding Shaders.FilmGrain}" />
+                    <CheckBox IsChecked="{Binding HXE.Shaders.FilmGrain}" />
                 </DockPanel>
 
                 <DockPanel Margin="0,5,0,0">
                     <Label Content="MXAO:" />
-                    <ComboBox SelectedIndex="{Binding Shaders.Mxao}">
+                    <ComboBox SelectedIndex="{Binding HXE.Shaders.Mxao}">
                         <ComboBoxItem Content="Off" />
                         <ComboBoxItem Content="Low" />
                         <ComboBoxItem Content="High" />
@@ -147,7 +147,7 @@
 
                 <DockPanel>
                     <Label Content="Motion Blur:" />
-                    <ComboBox SelectedIndex="{Binding Shaders.MotionBlur}">
+                    <ComboBox SelectedIndex="{Binding HXE.Shaders.MotionBlur}">
                         <ComboBoxItem Content="Off" />
                         <ComboBoxItem Content="Built-in" />
                         <ComboBoxItem Content="POMB Low" />
@@ -157,7 +157,7 @@
 
                 <DockPanel>
                     <Label Content="DOF:" />
-                    <ComboBox SelectedIndex="{Binding Shaders.Dof}">
+                    <ComboBox SelectedIndex="{Binding HXE.Shaders.Dof}">
                         <ComboBoxItem Content="Off" />
                         <ComboBoxItem Content="Low" />
                         <ComboBoxItem Content="High" />
@@ -232,35 +232,35 @@
 
                 <DockPanel>
                     <Label Content="Enable: SPV3 Kernel Mode:" />
-                    <CheckBox IsChecked="{Binding Kernel.EnableSpv3KernelMode}" />
+                    <CheckBox IsChecked="{Binding HXE.Kernel.EnableSpv3KernelMode}" />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Enable: SPV3 Legacy Mode:" />
-                    <CheckBox IsChecked="{Binding Kernel.EnableSpv3LegacyMode}" />
+                    <CheckBox IsChecked="{Binding HXE.Kernel.EnableSpv3LegacyMode}" />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Skip: Verify Main Assets:" />
-                    <CheckBox IsChecked="{Binding Kernel.SkipVerifyMainAssets}" />
+                    <CheckBox IsChecked="{Binding HXE.Kernel.SkipVerifyMainAssets}" />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Skip: Invoke Core Tweaks:" />
-                    <CheckBox IsChecked="{Binding Kernel.SkipInvokeCoreTweaks}" />
+                    <CheckBox IsChecked="{Binding HXE.Kernel.SkipInvokeCoreTweaks}" />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Skip: Resume Checkpoint:" />
-                    <CheckBox IsChecked="{Binding Kernel.SkipResumeCheckpoint}" />
+                    <CheckBox IsChecked="{Binding HXE.Kernel.SkipResumeCheckpoint}" />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Skip: Set Shaders Config:" />
-                    <CheckBox IsChecked="{Binding Kernel.SkipSetShadersConfig}" />
+                    <CheckBox IsChecked="{Binding HXE.Kernel.SkipSetShadersConfig}" />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Skip: Invoke Executable:" />
-                    <CheckBox IsChecked="{Binding Kernel.SkipInvokeExecutable}" />
+                    <CheckBox IsChecked="{Binding HXE.Kernel.SkipInvokeExecutable}" />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Skip: Patch LAA:" />
-                    <CheckBox IsChecked="{Binding Kernel.SkipPatchLargeAAware}" />
+                    <CheckBox IsChecked="{Binding HXE.Kernel.SkipPatchLargeAAware}" />
                 </DockPanel>
             </StackPanel>
         </Grid>

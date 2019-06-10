@@ -18,173 +18,27 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-using System;
-using System.IO;
-using HXE.SPV3;
-
 namespace SPV3
 {
   public partial class Configuration
   {
     public ConfigurationLoader    Loader    { get; set; } = new ConfigurationLoader();
-    public ConfigurationKernel    Kernel    { get; set; } = new ConfigurationKernel();
-    public ConfigurationShaders   Shaders   { get; set; } = new ConfigurationShaders();
+    public ConfigurationHXE       HXE       { get; set; } = new ConfigurationHXE();
     public ConfigurationOpenSauce OpenSauce { get; set; } = new ConfigurationOpenSauce();
 
     public void Load()
     {
       Loader.Load();
       OpenSauce.Load();
-
-      if (File.Exists(HXE.Paths.Configuration))
-      {
-        var kernel = (HXE.Configuration) HXE.Paths.Configuration;
-        kernel.Load();
-
-        /* core */
-        {
-          Kernel.SkipVerifyMainAssets = kernel.Kernel.SkipVerifyMainAssets;
-          Kernel.SkipInvokeCoreTweaks = kernel.Kernel.SkipInvokeCoreTweaks;
-          Kernel.SkipResumeCheckpoint = kernel.Kernel.SkipResumeCheckpoint;
-          Kernel.SkipSetShadersConfig = kernel.Kernel.SkipSetShadersConfig;
-          Kernel.SkipInvokeExecutable = kernel.Kernel.SkipInvokeExecutable;
-          Kernel.SkipPatchLargeAAware = kernel.Kernel.SkipPatchLargeAAware;
-          Kernel.EnableSpv3KernelMode = kernel.Kernel.EnableSpv3KernelMode;
-          Kernel.EnableSpv3LegacyMode = kernel.Kernel.EnableSpv3LegacyMode;
-        }
-
-        /* shaders */
-        {
-          Shaders.DynamicLensFlares = kernel.PostProcessing.DynamicLensFlares;
-          Shaders.Volumetrics       = kernel.PostProcessing.Volumetrics;
-          Shaders.LensDirt          = kernel.PostProcessing.LensDirt;
-          Shaders.HudVisor          = kernel.PostProcessing.HudVisor;
-          Shaders.FilmGrain         = kernel.PostProcessing.FilmGrain;
-
-          switch (kernel.PostProcessing.Mxao)
-          {
-            case PostProcessing.MxaoOptions.Off:
-              Shaders.Mxao = 0;
-              break;
-            case PostProcessing.MxaoOptions.Low:
-              Shaders.Mxao = 1;
-              break;
-            case PostProcessing.MxaoOptions.High:
-              Shaders.Mxao = 2;
-              break;
-            default:
-              throw new ArgumentOutOfRangeException();
-          }
-
-          switch (kernel.PostProcessing.MotionBlur)
-          {
-            case PostProcessing.MotionBlurOptions.Off:
-              Shaders.MotionBlur = 0;
-              break;
-            case PostProcessing.MotionBlurOptions.BuiltIn:
-              Shaders.MotionBlur = 1;
-              break;
-            case PostProcessing.MotionBlurOptions.PombLow:
-              Shaders.MotionBlur = 2;
-              break;
-            case PostProcessing.MotionBlurOptions.PombHigh:
-              Shaders.MotionBlur = 3;
-              break;
-            default:
-              throw new ArgumentOutOfRangeException();
-          }
-
-          switch (kernel.PostProcessing.Dof)
-          {
-            case PostProcessing.DofOptions.Off:
-              Shaders.Dof = 0;
-              break;
-            case PostProcessing.DofOptions.Low:
-              Shaders.Dof = 1;
-              break;
-            case PostProcessing.DofOptions.High:
-              Shaders.Dof = 2;
-              break;
-            default:
-              throw new ArgumentOutOfRangeException();
-          }
-        }
-      }
+      HXE.Load();
     }
 
     public void Save()
     {
-      var hxe = (HXE.Configuration) HXE.Paths.Configuration;
-
-      /* hxe */
-      {
-        /* core */
-        hxe.Kernel.SkipVerifyMainAssets = Kernel.SkipVerifyMainAssets;
-        hxe.Kernel.SkipInvokeCoreTweaks = Kernel.SkipInvokeCoreTweaks;
-        hxe.Kernel.SkipResumeCheckpoint = Kernel.SkipResumeCheckpoint;
-        hxe.Kernel.SkipSetShadersConfig = Kernel.SkipSetShadersConfig;
-        hxe.Kernel.SkipInvokeExecutable = Kernel.SkipInvokeExecutable;
-        hxe.Kernel.SkipPatchLargeAAware = Kernel.SkipPatchLargeAAware;
-        hxe.Kernel.EnableSpv3KernelMode = Kernel.EnableSpv3KernelMode;
-        hxe.Kernel.EnableSpv3LegacyMode = Kernel.EnableSpv3LegacyMode;
-
-        /* shaders */
-        hxe.PostProcessing.DynamicLensFlares = Shaders.DynamicLensFlares;
-        hxe.PostProcessing.Volumetrics       = Shaders.Volumetrics;
-        hxe.PostProcessing.LensDirt          = Shaders.LensDirt;
-        hxe.PostProcessing.HudVisor          = Shaders.HudVisor;
-        hxe.PostProcessing.FilmGrain         = Shaders.FilmGrain;
-
-        switch (Shaders.Mxao)
-        {
-          case 0:
-            hxe.PostProcessing.Mxao = PostProcessing.MxaoOptions.Off;
-            break;
-          case 1:
-            hxe.PostProcessing.Mxao = PostProcessing.MxaoOptions.Low;
-            break;
-          case 2:
-            hxe.PostProcessing.Mxao = PostProcessing.MxaoOptions.High;
-            break;
-        }
-
-        switch (Shaders.MotionBlur)
-        {
-          case 0:
-            hxe.PostProcessing.MotionBlur = PostProcessing.MotionBlurOptions.Off;
-            break;
-          case 1:
-            hxe.PostProcessing.MotionBlur = PostProcessing.MotionBlurOptions.BuiltIn;
-            break;
-          case 2:
-            hxe.PostProcessing.MotionBlur = PostProcessing.MotionBlurOptions.PombLow;
-            break;
-          case 3:
-            hxe.PostProcessing.MotionBlur = PostProcessing.MotionBlurOptions.PombHigh;
-            break;
-        }
-
-        switch (Shaders.Dof)
-        {
-          case 0:
-            hxe.PostProcessing.Dof = PostProcessing.DofOptions.Off;
-            break;
-          case 1:
-            hxe.PostProcessing.Dof = PostProcessing.DofOptions.Low;
-            break;
-          case 2:
-            hxe.PostProcessing.Dof = PostProcessing.DofOptions.High;
-            break;
-        }
-
-        hxe.Save();
-      }
-
       /* spv3 & opensauce */
       {
-        OpenSauce.Configuration.Rasterizer.PostProcessing.MotionBlur.Enabled = Shaders.MotionBlur == 1;
-
-        OpenSauce.Save();
+        OpenSauce.Configuration.Rasterizer.PostProcessing.MotionBlur.Enabled = HXE.Shaders.MotionBlur == 1;
+        HXE.Save();
         Loader.Save();
       }
     }

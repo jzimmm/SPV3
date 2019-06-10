@@ -32,12 +32,12 @@ namespace SPV3
       private bool   _bloom;
       private bool   _depthFade;
       private bool   _detailedMaps;
+      private double _fieldOfView;
       private bool   _normalMaps;
       private bool   _specularLighting;
       private bool   _specularMaps;
-      private double _fieldOfView;
 
-      public OpenSauce Configuration { get; set; } = (OpenSauce) HXE.Paths.Custom.OpenSauce(Paths.Directory);
+      public OpenSauce Configuration { get; set; } = (OpenSauce) global::HXE.Paths.Custom.OpenSauce(Paths.Directory);
 
       public bool NormalMaps
       {

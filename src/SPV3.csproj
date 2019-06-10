@@ -73,10 +73,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Configuration.cs" />
-    <Compile Include="Configuration.Kernel.cs" />
+    <Compile Include="Configuration.HXE.cs" />
+    <Compile Include="Configuration.HXE.Kernel.cs" />
+    <Compile Include="Configuration.HXE.Shaders.cs" />
     <Compile Include="Configuration.Loader.cs" />
     <Compile Include="Configuration.OpenSauce.cs" />
-    <Compile Include="Configuration.Shaders.cs" />
     <Compile Include="Configuration.UserControl.xaml.cs">
       <DependentUpon>Configuration.UserControl.xaml</DependentUpon>
     </Compile>

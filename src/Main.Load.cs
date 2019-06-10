@@ -27,7 +27,6 @@ using HXE;
 using HXE.HCE;
 using HXE.SPV3;
 using SPV3.Annotations;
-using File = System.IO.File;
 
 namespace SPV3
 {
