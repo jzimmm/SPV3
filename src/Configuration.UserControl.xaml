@@ -204,10 +204,15 @@
                     <Label Content="Depth Fade:" />
                     <CheckBox IsChecked="{Binding OpenSauce.DepthFade}" />
                 </DockPanel>
-                <DockPanel>
-                    <Label Content="Field of View:" />
-                    <TextBox Text="{Binding OpenSauce.FieldOfView}" />
-                </DockPanel>
+                <StackPanel>
+                    <DockPanel>
+                        <Label Content="Field of View:" />
+                        <TextBox Text="{Binding OpenSauce.FieldOfView}" />
+                    </DockPanel>
+                    <Button Margin="0,2,0,0"
+                            Content="Calculate FOV"
+                            Click="CalculateFOV" />
+                </StackPanel>
             </StackPanel>
 
             <!-- HXE Kernel -->

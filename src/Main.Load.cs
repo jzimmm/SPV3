@@ -86,8 +86,7 @@ namespace SPV3
         hxe.Kernel.EnableSpv3KernelMode = true; /* hxe spv3 compatibility */
         hxe.Save();                             /* saves to %APPDATA%\HXE */
 
-        if (File.Exists(Paths.Configuration))
-          spv3.Load();
+        spv3.Load();
 
         Kernel.Bootstrap(new Executable
         {

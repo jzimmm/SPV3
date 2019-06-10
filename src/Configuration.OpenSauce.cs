@@ -152,6 +152,12 @@ namespace SPV3
       {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
       }
+
+      public void CalculateFOV()
+      {
+        OpenSauce.Camera.CalculateFOV();
+        FieldOfView = OpenSauce.Camera.FieldOfView;
+      }
     }
   }
 }

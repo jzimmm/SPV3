@@ -47,5 +47,10 @@ namespace SPV3
     {
       Home?.Invoke(sender, e);
     }
+
+    private void CalculateFOV(object sender, RoutedEventArgs e)
+    {
+      _configuration.OpenSauce.CalculateFOV();
+    }
   }
 }
