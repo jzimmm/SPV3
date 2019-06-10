@@ -1,0 +1,11 @@
+UPDATING
+========
+
+In a nutshell, the assembly's version is compared to the one broadcasted
+by the remote server. If the latter is higher, then a download link will
+be provided.
+
+This only occurs when the loader is present in a directory with a
+working SPV3 installation. The loader should ideally not be updated when
+it's used to install SPV3 packages, as subsequent updates may break
+compatibility.
