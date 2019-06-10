@@ -28,10 +28,13 @@ namespace SPV3
   {
     public class ConfigurationShaders : INotifyPropertyChanged
     {
+      private int  _dof;
       private bool _dynamicLensFlares;
       private bool _filmGrain;
       private bool _hudVisor;
       private bool _lensDirt;
+      private int  _motionBlur;
+      private int  _mxao;
       private bool _volumetrics;
 
       public bool DynamicLensFlares
@@ -85,6 +88,39 @@ namespace SPV3
         {
           if (value == _filmGrain) return;
           _filmGrain = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public int Mxao
+      {
+        get => _mxao;
+        set
+        {
+          if (value == _mxao) return;
+          _mxao = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public int MotionBlur
+      {
+        get => _motionBlur;
+        set
+        {
+          if (value == _motionBlur) return;
+          _motionBlur = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public int Dof
+      {
+        get => _dof;
+        set
+        {
+          if (value == _dof) return;
+          _dof = value;
           OnPropertyChanged();
         }
       }

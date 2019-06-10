@@ -105,6 +105,9 @@
                     <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
                         <Setter Property="Width" Value="140" />
                     </Style>
+                    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+                        <Setter Property="Width" Value="75" />
+                    </Style>
                 </StackPanel.Resources>
 
                 <Label Content="SPV3 Shaders"
@@ -131,6 +134,34 @@
                 <DockPanel>
                     <Label Content="Film Grain:" />
                     <CheckBox IsChecked="{Binding Shaders.FilmGrain}" />
+                </DockPanel>
+
+                <DockPanel Margin="0,5,0,0">
+                    <Label Content="MXAO:" />
+                    <ComboBox SelectedIndex="{Binding Shaders.Mxao}">
+                        <ComboBoxItem Content="Off" />
+                        <ComboBoxItem Content="Low" />
+                        <ComboBoxItem Content="High" />
+                    </ComboBox>
+                </DockPanel>
+
+                <DockPanel>
+                    <Label Content="Motion Blur:" />
+                    <ComboBox SelectedIndex="{Binding Shaders.MotionBlur}">
+                        <ComboBoxItem Content="Off" />
+                        <ComboBoxItem Content="Built-in" />
+                        <ComboBoxItem Content="POMB Low" />
+                        <ComboBoxItem Content="POMB High" />
+                    </ComboBox>
+                </DockPanel>
+
+                <DockPanel>
+                    <Label Content="DOF:" />
+                    <ComboBox SelectedIndex="{Binding Shaders.Dof}">
+                        <ComboBoxItem Content="Off" />
+                        <ComboBoxItem Content="Low" />
+                        <ComboBoxItem Content="High" />
+                    </ComboBox>
                 </DockPanel>
             </StackPanel>
 

@@ -18,7 +18,9 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using System;
 using System.IO;
+using HXE.SPV3;
 
 namespace SPV3
 {
@@ -39,28 +41,76 @@ namespace SPV3
 
       if (File.Exists(HXE.Paths.Configuration))
       {
-        var configuration = (HXE.Configuration) HXE.Paths.Configuration;
-        configuration.Load();
+        var kernel = (HXE.Configuration) HXE.Paths.Configuration;
+        kernel.Load();
 
         /* core */
         {
-          Kernel.SkipVerifyMainAssets = configuration.Kernel.SkipVerifyMainAssets;
-          Kernel.SkipInvokeCoreTweaks = configuration.Kernel.SkipInvokeCoreTweaks;
-          Kernel.SkipResumeCheckpoint = configuration.Kernel.SkipResumeCheckpoint;
-          Kernel.SkipSetShadersConfig = configuration.Kernel.SkipSetShadersConfig;
-          Kernel.SkipInvokeExecutable = configuration.Kernel.SkipInvokeExecutable;
-          Kernel.SkipPatchLargeAAware = configuration.Kernel.SkipPatchLargeAAware;
-          Kernel.EnableSpv3KernelMode = configuration.Kernel.EnableSpv3KernelMode;
-          Kernel.EnableSpv3LegacyMode = configuration.Kernel.EnableSpv3LegacyMode;
+          Kernel.SkipVerifyMainAssets = kernel.Kernel.SkipVerifyMainAssets;
+          Kernel.SkipInvokeCoreTweaks = kernel.Kernel.SkipInvokeCoreTweaks;
+          Kernel.SkipResumeCheckpoint = kernel.Kernel.SkipResumeCheckpoint;
+          Kernel.SkipSetShadersConfig = kernel.Kernel.SkipSetShadersConfig;
+          Kernel.SkipInvokeExecutable = kernel.Kernel.SkipInvokeExecutable;
+          Kernel.SkipPatchLargeAAware = kernel.Kernel.SkipPatchLargeAAware;
+          Kernel.EnableSpv3KernelMode = kernel.Kernel.EnableSpv3KernelMode;
+          Kernel.EnableSpv3LegacyMode = kernel.Kernel.EnableSpv3LegacyMode;
         }
 
         /* shaders */
         {
-          Shaders.DynamicLensFlares = configuration.PostProcessing.DynamicLensFlares;
-          Shaders.Volumetrics       = configuration.PostProcessing.Volumetrics;
-          Shaders.LensDirt          = configuration.PostProcessing.LensDirt;
-          Shaders.HudVisor          = configuration.PostProcessing.HudVisor;
-          Shaders.FilmGrain         = configuration.PostProcessing.FilmGrain;
+          Shaders.DynamicLensFlares = kernel.PostProcessing.DynamicLensFlares;
+          Shaders.Volumetrics       = kernel.PostProcessing.Volumetrics;
+          Shaders.LensDirt          = kernel.PostProcessing.LensDirt;
+          Shaders.HudVisor          = kernel.PostProcessing.HudVisor;
+          Shaders.FilmGrain         = kernel.PostProcessing.FilmGrain;
+
+          switch (kernel.PostProcessing.Mxao)
+          {
+            case PostProcessing.MxaoOptions.Off:
+              Shaders.Mxao = 0;
+              break;
+            case PostProcessing.MxaoOptions.Low:
+              Shaders.Mxao = 1;
+              break;
+            case PostProcessing.MxaoOptions.High:
+              Shaders.Mxao = 2;
+              break;
+            default:
+              throw new ArgumentOutOfRangeException();
+          }
+
+          switch (kernel.PostProcessing.MotionBlur)
+          {
+            case PostProcessing.MotionBlurOptions.Off:
+              Shaders.MotionBlur = 0;
+              break;
+            case PostProcessing.MotionBlurOptions.BuiltIn:
+              Shaders.MotionBlur = 1;
+              break;
+            case PostProcessing.MotionBlurOptions.PombLow:
+              Shaders.MotionBlur = 2;
+              break;
+            case PostProcessing.MotionBlurOptions.PombHigh:
+              Shaders.MotionBlur = 3;
+              break;
+            default:
+              throw new ArgumentOutOfRangeException();
+          }
+
+          switch (kernel.PostProcessing.Dof)
+          {
+            case PostProcessing.DofOptions.Off:
+              Shaders.Dof = 0;
+              break;
+            case PostProcessing.DofOptions.Low:
+              Shaders.Dof = 1;
+              break;
+            case PostProcessing.DofOptions.High:
+              Shaders.Dof = 2;
+              break;
+            default:
+              throw new ArgumentOutOfRangeException();
+          }
         }
       }
     }
@@ -88,6 +138,48 @@ namespace SPV3
         kernel.PostProcessing.LensDirt          = Shaders.LensDirt;
         kernel.PostProcessing.HudVisor          = Shaders.HudVisor;
         kernel.PostProcessing.FilmGrain         = Shaders.FilmGrain;
+
+        switch (Shaders.Mxao)
+        {
+          case 0:
+            kernel.PostProcessing.Mxao = PostProcessing.MxaoOptions.Off;
+            break;
+          case 1:
+            kernel.PostProcessing.Mxao = PostProcessing.MxaoOptions.Low;
+            break;
+          case 2:
+            kernel.PostProcessing.Mxao = PostProcessing.MxaoOptions.High;
+            break;
+        }
+
+        switch (Shaders.MotionBlur)
+        {
+          case 0:
+            kernel.PostProcessing.MotionBlur = PostProcessing.MotionBlurOptions.Off;
+            break;
+          case 1:
+            kernel.PostProcessing.MotionBlur = PostProcessing.MotionBlurOptions.BuiltIn;
+            break;
+          case 2:
+            kernel.PostProcessing.MotionBlur = PostProcessing.MotionBlurOptions.PombLow;
+            break;
+          case 3:
+            kernel.PostProcessing.MotionBlur = PostProcessing.MotionBlurOptions.PombHigh;
+            break;
+        }
+
+        switch (Shaders.Dof)
+        {
+          case 0:
+            kernel.PostProcessing.Dof = PostProcessing.DofOptions.Off;
+            break;
+          case 1:
+            kernel.PostProcessing.Dof = PostProcessing.DofOptions.Low;
+            break;
+          case 2:
+            kernel.PostProcessing.Dof = PostProcessing.DofOptions.High;
+            break;
+        }
       }
 
       kernel.Save();
