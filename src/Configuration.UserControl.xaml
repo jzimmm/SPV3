@@ -200,10 +200,6 @@
                     <Label Content="Bloom:" />
                     <CheckBox IsChecked="{Binding OpenSauce.Bloom}" />
                 </DockPanel>
-                <DockPanel>
-                    <Label Content="Depth Fade:" />
-                    <CheckBox IsChecked="{Binding OpenSauce.DepthFade}" />
-                </DockPanel>
                 <StackPanel>
                     <DockPanel>
                         <Label Content="Field of View:" />

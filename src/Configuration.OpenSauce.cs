@@ -30,7 +30,6 @@ namespace SPV3
     public class ConfigurationOpenSauce : INotifyPropertyChanged
     {
       private bool   _bloom;
-      private bool   _depthFade;
       private bool   _detailedMaps;
       private double _fieldOfView;
       private bool   _normalMaps;
@@ -94,17 +93,6 @@ namespace SPV3
         }
       }
 
-      public bool DepthFade
-      {
-        get => _depthFade;
-        set
-        {
-          if (value == _depthFade) return;
-          _depthFade = value;
-          OnPropertyChanged();
-        }
-      }
-
       public double FieldOfView
       {
         get => _fieldOfView;
@@ -128,7 +116,6 @@ namespace SPV3
         Configuration.Rasterizer.ShaderExtensions.Object.SpecularMaps     = SpecularMaps;
         Configuration.Rasterizer.ShaderExtensions.Object.SpecularLighting = SpecularLighting;
         Configuration.Rasterizer.PostProcessing.Bloom.Enabled             = Bloom;
-        Configuration.Rasterizer.ShaderExtensions.Effect.DepthFade        = DepthFade;
         Configuration.Camera.FieldOfView                                  = FieldOfView;
         Configuration.Save();
       }
@@ -143,7 +130,6 @@ namespace SPV3
         SpecularMaps     = Configuration.Rasterizer.ShaderExtensions.Object.SpecularMaps;
         SpecularLighting = Configuration.Rasterizer.ShaderExtensions.Object.SpecularLighting;
         Bloom            = Configuration.Rasterizer.PostProcessing.Bloom.Enabled;
-        DepthFade        = Configuration.Rasterizer.ShaderExtensions.Effect.DepthFade;
         FieldOfView      = Configuration.Camera.FieldOfView;
       }
 

@@ -59,11 +59,12 @@ namespace SPV3
         if (openSauce.Exists())
           openSauce.Load();
 
-        openSauce.HUD.ShowHUD                        = true; /* fixes user interface    */
-        openSauce.HUD.ScaleHUD                       = true; /* fixes user interface    */
-        openSauce.Camera.IgnoreFOVChangeInCinematics = true; /* fixes user interface    */
-        openSauce.Camera.IgnoreFOVChangeInMainMenu   = true; /* fixes user interface    */
-        openSauce.Save();                                    /* saves to %APPDATA%\SPV3 */
+        openSauce.HUD.ShowHUD                                  = true; /* fixes user interface    */
+        openSauce.HUD.ScaleHUD                                 = true; /* fixes user interface    */
+        openSauce.Camera.IgnoreFOVChangeInCinematics           = true; /* fixes user interface    */
+        openSauce.Camera.IgnoreFOVChangeInMainMenu             = true; /* fixes user interface    */
+        openSauce.Rasterizer.ShaderExtensions.Effect.DepthFade = true; /* shader optimisations    */
+        openSauce.Save();                                              /* saves to %APPDATA%\SPV3 */
 
         /**
          * Since we don't fully support the Chimera binary configuration, we'll manipulate it only when it's available. 
