@@ -118,6 +118,9 @@ namespace SPV3
 
       public void Load()
       {
+        if (!File.Exists(Paths.Configuration))
+          return;
+
         using (var fs = new FileStream(Paths.Configuration, FileMode.Open, FileAccess.Read))
         using (var ms = new MemoryStream(256))
         using (var br = new BinaryReader(ms))

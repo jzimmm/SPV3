@@ -33,9 +33,7 @@ namespace SPV3
 
     public void Load()
     {
-      if (File.Exists(Paths.Configuration))
-        Loader.Load();
-
+      Loader.Load();
       OpenSauce.Load();
 
       if (File.Exists(HXE.Paths.Configuration))
