@@ -129,12 +129,12 @@
                     </Button>
 
                     <!-- About -->
-                    <Button>
+                    <Button Click="About">
                         About
                     </Button>
 
                     <!-- Help -->
-                    <Button>
+                    <Button Click="Help">
                         Help
                     </Button>
 
