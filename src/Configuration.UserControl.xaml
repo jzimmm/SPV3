@@ -45,6 +45,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.Resources>
                 <Style TargetType="{x:Type Label}">
@@ -133,8 +134,49 @@
                 </DockPanel>
             </StackPanel>
 
-            <!-- HXE Kernel -->
+            <!-- OpenSauce -->
             <StackPanel Grid.Column="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
+                        <Setter Property="Width" Value="125" />
+                    </Style>
+                </StackPanel.Resources>
+
+                <Label Content="OpenSauce"
+                       HorizontalAlignment="Center"
+                       Width="Auto"
+                       FontSize="16" />
+
+                <DockPanel>
+                    <Label Content="Normal Maps:" />
+                    <CheckBox IsChecked="{Binding OpenSauce.NormalMaps}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Detailed Maps:" />
+                    <CheckBox IsChecked="{Binding OpenSauce.DetailedMaps}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Specular Maps:" />
+                    <CheckBox IsChecked="{Binding OpenSauce.SpecularMaps}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Specular Lighting:" />
+                    <CheckBox IsChecked="{Binding OpenSauce.SpecularLighting}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Bloom:" />
+                    <CheckBox IsChecked="{Binding OpenSauce.Bloom}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Depth Fade:" />
+                    <CheckBox IsChecked="{Binding OpenSauce.DepthFade}" />
+                </DockPanel>
+            </StackPanel>
+
+            <!-- HXE Kernel -->
+            <StackPanel Grid.Column="3"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
                 <StackPanel.Resources>

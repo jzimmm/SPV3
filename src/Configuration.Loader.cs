@@ -31,10 +31,10 @@ namespace SPV3
   {
     public class ConfigurationLoader : INotifyPropertyChanged
     {
+      private bool   _gamma;
       private ushort _height = (ushort) Screen.PrimaryScreen.Bounds.Height;
       private ushort _width  = (ushort) Screen.PrimaryScreen.Bounds.Width;
       private bool   _window;
-      private bool   _gamma;
 
       public bool Window
       {

@@ -24,14 +24,18 @@ namespace SPV3
 {
   public partial class Configuration
   {
-    public ConfigurationLoader  Loader  { get; set; } = new ConfigurationLoader();
-    public ConfigurationKernel  Kernel  { get; set; } = new ConfigurationKernel();
-    public ConfigurationShaders Shaders { get; set; } = new ConfigurationShaders();
+    public ConfigurationLoader    Loader    { get; set; } = new ConfigurationLoader();
+    public ConfigurationKernel    Kernel    { get; set; } = new ConfigurationKernel();
+    public ConfigurationShaders   Shaders   { get; set; } = new ConfigurationShaders();
+    public ConfigurationOpenSauce OpenSauce { get; set; } = new ConfigurationOpenSauce();
 
     public void Load()
     {
       if (File.Exists(Paths.Configuration))
         Loader.Load();
+
+      if (File.Exists(HXE.Paths.Custom.OpenSauce(Paths.Directory)))
+        OpenSauce.Load();
 
       if (File.Exists(HXE.Paths.Configuration))
       {
@@ -63,32 +67,32 @@ namespace SPV3
 
     public void Save()
     {
-      Loader.Save();
-
-      var configuration = (HXE.Configuration) HXE.Paths.Configuration;
+      var kernel = (HXE.Configuration) HXE.Paths.Configuration;
 
       /* core */
       {
-        configuration.Kernel.SkipVerifyMainAssets = Kernel.SkipVerifyMainAssets;
-        configuration.Kernel.SkipInvokeCoreTweaks = Kernel.SkipInvokeCoreTweaks;
-        configuration.Kernel.SkipResumeCheckpoint = Kernel.SkipResumeCheckpoint;
-        configuration.Kernel.SkipSetShadersConfig = Kernel.SkipSetShadersConfig;
-        configuration.Kernel.SkipInvokeExecutable = Kernel.SkipInvokeExecutable;
-        configuration.Kernel.SkipPatchLargeAAware = Kernel.SkipPatchLargeAAware;
-        configuration.Kernel.EnableSpv3KernelMode = Kernel.EnableSpv3KernelMode;
-        configuration.Kernel.EnableSpv3LegacyMode = Kernel.EnableSpv3LegacyMode;
+        kernel.Kernel.SkipVerifyMainAssets = Kernel.SkipVerifyMainAssets;
+        kernel.Kernel.SkipInvokeCoreTweaks = Kernel.SkipInvokeCoreTweaks;
+        kernel.Kernel.SkipResumeCheckpoint = Kernel.SkipResumeCheckpoint;
+        kernel.Kernel.SkipSetShadersConfig = Kernel.SkipSetShadersConfig;
+        kernel.Kernel.SkipInvokeExecutable = Kernel.SkipInvokeExecutable;
+        kernel.Kernel.SkipPatchLargeAAware = Kernel.SkipPatchLargeAAware;
+        kernel.Kernel.EnableSpv3KernelMode = Kernel.EnableSpv3KernelMode;
+        kernel.Kernel.EnableSpv3LegacyMode = Kernel.EnableSpv3LegacyMode;
       }
 
       /* shaders */
       {
-        configuration.PostProcessing.DynamicLensFlares = Shaders.DynamicLensFlares;
-        configuration.PostProcessing.Volumetrics       = Shaders.Volumetrics;
-        configuration.PostProcessing.LensDirt          = Shaders.LensDirt;
-        configuration.PostProcessing.HudVisor          = Shaders.HudVisor;
-        configuration.PostProcessing.FilmGrain         = Shaders.FilmGrain;
+        kernel.PostProcessing.DynamicLensFlares = Shaders.DynamicLensFlares;
+        kernel.PostProcessing.Volumetrics       = Shaders.Volumetrics;
+        kernel.PostProcessing.LensDirt          = Shaders.LensDirt;
+        kernel.PostProcessing.HudVisor          = Shaders.HudVisor;
+        kernel.PostProcessing.FilmGrain         = Shaders.FilmGrain;
       }
 
-      configuration.Save();
+      kernel.Save();
+      Loader.Save();
+      OpenSauce.Save();
     }
   }
 }

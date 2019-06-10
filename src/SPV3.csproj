@@ -75,6 +75,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Configuration.Kernel.cs" />
     <Compile Include="Configuration.Loader.cs" />
+    <Compile Include="Configuration.OpenSauce.cs" />
     <Compile Include="Configuration.Shaders.cs" />
     <Compile Include="Configuration.UserControl.xaml.cs">
       <DependentUpon>Configuration.UserControl.xaml</DependentUpon>

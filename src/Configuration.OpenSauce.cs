@@ -1,0 +1,143 @@
+/**
+ * Copyright (c) 2019 Emilian Roman
+ * 
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any damages
+ * arising from the use of this software.
+ * 
+ * Permission is granted to anyone to use this software for any purpose,
+ * including commercial applications, and to alter it and redistribute it
+ * freely, subject to the following restrictions:
+ * 
+ * 1. The origin of this software must not be misrepresented; you must not
+ *    claim that you wrote the original software. If you use this software
+ *    in a product, an acknowledgment in the product documentation would be
+ *    appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be
+ *    misrepresented as being the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ */
+
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using HXE;
+using SPV3.Annotations;
+
+namespace SPV3
+{
+  public partial class Configuration
+  {
+    public class ConfigurationOpenSauce : INotifyPropertyChanged
+    {
+      private bool _bloom;
+      private bool _depthFade;
+      private bool _detailedMaps;
+      private bool _normalMaps;
+      private bool _specularLighting;
+      private bool _specularMaps;
+
+      public bool NormalMaps
+      {
+        get => _normalMaps;
+        set
+        {
+          if (value == _normalMaps) return;
+          _normalMaps = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public bool DetailedMaps
+      {
+        get => _detailedMaps;
+        set
+        {
+          if (value == _detailedMaps) return;
+          _detailedMaps = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public bool SpecularMaps
+      {
+        get => _specularMaps;
+        set
+        {
+          if (value == _specularMaps) return;
+          _specularMaps = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public bool SpecularLighting
+      {
+        get => _specularLighting;
+        set
+        {
+          if (value == _specularLighting) return;
+          _specularLighting = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public bool Bloom
+      {
+        get => _bloom;
+        set
+        {
+          if (value == _bloom) return;
+          _bloom = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public bool DepthFade
+      {
+        get => _depthFade;
+        set
+        {
+          if (value == _depthFade) return;
+          _depthFade = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public event PropertyChangedEventHandler PropertyChanged;
+
+      public void Save()
+      {
+        var openSauce = (OpenSauce) HXE.Paths.Custom.OpenSauce(Paths.Directory);
+
+        if (openSauce.Exists())
+          openSauce.Load();
+
+        openSauce.Rasterizer.ShaderExtensions.Object.NormalMaps       = NormalMaps;
+        openSauce.Rasterizer.ShaderExtensions.Object.DetailNormalMaps = DetailedMaps;
+        openSauce.Rasterizer.ShaderExtensions.Object.SpecularMaps     = SpecularMaps;
+        openSauce.Rasterizer.ShaderExtensions.Object.SpecularLighting = SpecularLighting;
+        openSauce.Rasterizer.PostProcessing.Bloom.Enabled             = Bloom;
+        openSauce.Rasterizer.ShaderExtensions.Effect.DepthFade        = DepthFade;
+        openSauce.Save();
+      }
+
+      public void Load()
+      {
+        var openSauce = (OpenSauce) HXE.Paths.Custom.OpenSauce(Paths.Directory);
+
+        openSauce.Load();
+        NormalMaps       = openSauce.Rasterizer.ShaderExtensions.Object.NormalMaps;
+        DetailedMaps     = openSauce.Rasterizer.ShaderExtensions.Object.DetailNormalMaps;
+        SpecularMaps     = openSauce.Rasterizer.ShaderExtensions.Object.SpecularMaps;
+        SpecularLighting = openSauce.Rasterizer.ShaderExtensions.Object.SpecularLighting;
+        Bloom            = openSauce.Rasterizer.PostProcessing.Bloom.Enabled;
+        DepthFade        = openSauce.Rasterizer.ShaderExtensions.Effect.DepthFade;
+      }
+
+      [NotifyPropertyChangedInvocator]
+      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+      {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+      }
+    }
+  }
+}
