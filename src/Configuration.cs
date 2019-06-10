@@ -114,74 +114,79 @@ namespace SPV3
 
     public void Save()
     {
-      var kernel = (HXE.Configuration) HXE.Paths.Configuration;
+      var hxe = (HXE.Configuration) HXE.Paths.Configuration;
 
-      /* core */
+      /* hxe */
       {
-        kernel.Kernel.SkipVerifyMainAssets = Kernel.SkipVerifyMainAssets;
-        kernel.Kernel.SkipInvokeCoreTweaks = Kernel.SkipInvokeCoreTweaks;
-        kernel.Kernel.SkipResumeCheckpoint = Kernel.SkipResumeCheckpoint;
-        kernel.Kernel.SkipSetShadersConfig = Kernel.SkipSetShadersConfig;
-        kernel.Kernel.SkipInvokeExecutable = Kernel.SkipInvokeExecutable;
-        kernel.Kernel.SkipPatchLargeAAware = Kernel.SkipPatchLargeAAware;
-        kernel.Kernel.EnableSpv3KernelMode = Kernel.EnableSpv3KernelMode;
-        kernel.Kernel.EnableSpv3LegacyMode = Kernel.EnableSpv3LegacyMode;
-      }
+        /* core */
+        hxe.Kernel.SkipVerifyMainAssets = Kernel.SkipVerifyMainAssets;
+        hxe.Kernel.SkipInvokeCoreTweaks = Kernel.SkipInvokeCoreTweaks;
+        hxe.Kernel.SkipResumeCheckpoint = Kernel.SkipResumeCheckpoint;
+        hxe.Kernel.SkipSetShadersConfig = Kernel.SkipSetShadersConfig;
+        hxe.Kernel.SkipInvokeExecutable = Kernel.SkipInvokeExecutable;
+        hxe.Kernel.SkipPatchLargeAAware = Kernel.SkipPatchLargeAAware;
+        hxe.Kernel.EnableSpv3KernelMode = Kernel.EnableSpv3KernelMode;
+        hxe.Kernel.EnableSpv3LegacyMode = Kernel.EnableSpv3LegacyMode;
 
-      /* shaders */
-      {
-        kernel.PostProcessing.DynamicLensFlares = Shaders.DynamicLensFlares;
-        kernel.PostProcessing.Volumetrics       = Shaders.Volumetrics;
-        kernel.PostProcessing.LensDirt          = Shaders.LensDirt;
-        kernel.PostProcessing.HudVisor          = Shaders.HudVisor;
-        kernel.PostProcessing.FilmGrain         = Shaders.FilmGrain;
+        /* shaders */
+        hxe.PostProcessing.DynamicLensFlares = Shaders.DynamicLensFlares;
+        hxe.PostProcessing.Volumetrics       = Shaders.Volumetrics;
+        hxe.PostProcessing.LensDirt          = Shaders.LensDirt;
+        hxe.PostProcessing.HudVisor          = Shaders.HudVisor;
+        hxe.PostProcessing.FilmGrain         = Shaders.FilmGrain;
 
         switch (Shaders.Mxao)
         {
           case 0:
-            kernel.PostProcessing.Mxao = PostProcessing.MxaoOptions.Off;
+            hxe.PostProcessing.Mxao = PostProcessing.MxaoOptions.Off;
             break;
           case 1:
-            kernel.PostProcessing.Mxao = PostProcessing.MxaoOptions.Low;
+            hxe.PostProcessing.Mxao = PostProcessing.MxaoOptions.Low;
             break;
           case 2:
-            kernel.PostProcessing.Mxao = PostProcessing.MxaoOptions.High;
+            hxe.PostProcessing.Mxao = PostProcessing.MxaoOptions.High;
             break;
         }
 
         switch (Shaders.MotionBlur)
         {
           case 0:
-            kernel.PostProcessing.MotionBlur = PostProcessing.MotionBlurOptions.Off;
+            hxe.PostProcessing.MotionBlur = PostProcessing.MotionBlurOptions.Off;
             break;
           case 1:
-            kernel.PostProcessing.MotionBlur = PostProcessing.MotionBlurOptions.BuiltIn;
+            hxe.PostProcessing.MotionBlur = PostProcessing.MotionBlurOptions.BuiltIn;
             break;
           case 2:
-            kernel.PostProcessing.MotionBlur = PostProcessing.MotionBlurOptions.PombLow;
+            hxe.PostProcessing.MotionBlur = PostProcessing.MotionBlurOptions.PombLow;
             break;
           case 3:
-            kernel.PostProcessing.MotionBlur = PostProcessing.MotionBlurOptions.PombHigh;
+            hxe.PostProcessing.MotionBlur = PostProcessing.MotionBlurOptions.PombHigh;
             break;
         }
 
         switch (Shaders.Dof)
         {
           case 0:
-            kernel.PostProcessing.Dof = PostProcessing.DofOptions.Off;
+            hxe.PostProcessing.Dof = PostProcessing.DofOptions.Off;
             break;
           case 1:
-            kernel.PostProcessing.Dof = PostProcessing.DofOptions.Low;
+            hxe.PostProcessing.Dof = PostProcessing.DofOptions.Low;
             break;
           case 2:
-            kernel.PostProcessing.Dof = PostProcessing.DofOptions.High;
+            hxe.PostProcessing.Dof = PostProcessing.DofOptions.High;
             break;
         }
+
+        hxe.Save();
       }
 
-      kernel.Save();
-      Loader.Save();
-      OpenSauce.Save();
+      /* spv3 & opensauce */
+      {
+        OpenSauce.Configuration.Rasterizer.PostProcessing.MotionBlur.Enabled = Shaders.MotionBlur == 1;
+
+        OpenSauce.Save();
+        Loader.Save();
+      }
     }
   }
 }

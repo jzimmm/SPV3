@@ -37,7 +37,7 @@ namespace SPV3
       private bool   _specularMaps;
       private double _fieldOfView;
 
-      public OpenSauce OpenSauce { get; set; } = (OpenSauce) HXE.Paths.Custom.OpenSauce(Paths.Directory);
+      public OpenSauce Configuration { get; set; } = (OpenSauce) HXE.Paths.Custom.OpenSauce(Paths.Directory);
 
       public bool NormalMaps
       {
@@ -120,31 +120,31 @@ namespace SPV3
 
       public void Save()
       {
-        if (OpenSauce.Exists())
-          OpenSauce.Load();
+        if (Configuration.Exists())
+          Configuration.Load();
 
-        OpenSauce.Rasterizer.ShaderExtensions.Object.NormalMaps       = NormalMaps;
-        OpenSauce.Rasterizer.ShaderExtensions.Object.DetailNormalMaps = DetailedMaps;
-        OpenSauce.Rasterizer.ShaderExtensions.Object.SpecularMaps     = SpecularMaps;
-        OpenSauce.Rasterizer.ShaderExtensions.Object.SpecularLighting = SpecularLighting;
-        OpenSauce.Rasterizer.PostProcessing.Bloom.Enabled             = Bloom;
-        OpenSauce.Rasterizer.ShaderExtensions.Effect.DepthFade        = DepthFade;
-        OpenSauce.Camera.FieldOfView                                  = FieldOfView;
-        OpenSauce.Save();
+        Configuration.Rasterizer.ShaderExtensions.Object.NormalMaps       = NormalMaps;
+        Configuration.Rasterizer.ShaderExtensions.Object.DetailNormalMaps = DetailedMaps;
+        Configuration.Rasterizer.ShaderExtensions.Object.SpecularMaps     = SpecularMaps;
+        Configuration.Rasterizer.ShaderExtensions.Object.SpecularLighting = SpecularLighting;
+        Configuration.Rasterizer.PostProcessing.Bloom.Enabled             = Bloom;
+        Configuration.Rasterizer.ShaderExtensions.Effect.DepthFade        = DepthFade;
+        Configuration.Camera.FieldOfView                                  = FieldOfView;
+        Configuration.Save();
       }
 
       public void Load()
       {
-        if (!OpenSauce.Exists()) return;
+        if (!Configuration.Exists()) return;
 
-        OpenSauce.Load();
-        NormalMaps       = OpenSauce.Rasterizer.ShaderExtensions.Object.NormalMaps;
-        DetailedMaps     = OpenSauce.Rasterizer.ShaderExtensions.Object.DetailNormalMaps;
-        SpecularMaps     = OpenSauce.Rasterizer.ShaderExtensions.Object.SpecularMaps;
-        SpecularLighting = OpenSauce.Rasterizer.ShaderExtensions.Object.SpecularLighting;
-        Bloom            = OpenSauce.Rasterizer.PostProcessing.Bloom.Enabled;
-        DepthFade        = OpenSauce.Rasterizer.ShaderExtensions.Effect.DepthFade;
-        FieldOfView      = OpenSauce.Camera.FieldOfView;
+        Configuration.Load();
+        NormalMaps       = Configuration.Rasterizer.ShaderExtensions.Object.NormalMaps;
+        DetailedMaps     = Configuration.Rasterizer.ShaderExtensions.Object.DetailNormalMaps;
+        SpecularMaps     = Configuration.Rasterizer.ShaderExtensions.Object.SpecularMaps;
+        SpecularLighting = Configuration.Rasterizer.ShaderExtensions.Object.SpecularLighting;
+        Bloom            = Configuration.Rasterizer.PostProcessing.Bloom.Enabled;
+        DepthFade        = Configuration.Rasterizer.ShaderExtensions.Effect.DepthFade;
+        FieldOfView      = Configuration.Camera.FieldOfView;
       }
 
       [NotifyPropertyChangedInvocator]
@@ -155,8 +155,8 @@ namespace SPV3
 
       public void CalculateFOV()
       {
-        OpenSauce.Camera.CalculateFOV();
-        FieldOfView = OpenSauce.Camera.FieldOfView;
+        Configuration.Camera.CalculateFOV();
+        FieldOfView = Configuration.Camera.FieldOfView;
       }
     }
   }
