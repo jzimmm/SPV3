@@ -44,7 +44,8 @@ namespace SPV3
 
     public void Initialise()
     {
-      Stack = File.ReadAllText(Paths.Exception);
+      if (File.Exists(Paths.Exception))
+        Stack = File.ReadAllText(Paths.Exception);
     }
 
     [NotifyPropertyChangedInvocator]

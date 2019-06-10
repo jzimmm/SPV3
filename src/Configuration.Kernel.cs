@@ -18,68 +18,119 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using SPV3.Annotations;
+
 namespace SPV3
 {
   public partial class Configuration
   {
-    public partial class ConfigurationKernel
+    public class ConfigurationKernel : INotifyPropertyChanged
     {
-      public ConfigurationKernelCore    Core    { get; set; } = new ConfigurationKernelCore();
-      public ConfigurationKernelShaders Shaders { get; set; } = new ConfigurationKernelShaders();
+      private bool _enableSpv3KernelMode;
+      private bool _enableSpv3LegacyMode;
+      private bool _skipInvokeCoreTweaks;
+      private bool _skipInvokeExecutable;
+      private bool _skipPatchLargeAAware;
+      private bool _skipResumeCheckpoint;
+      private bool _skipSetShadersConfig;
+      private bool _skipVerifyMainAssets;
 
-      public void Save()
+      public bool SkipVerifyMainAssets
       {
-        var configuration = (HXE.Configuration) HXE.Paths.Configuration;
-
-        /* core */
+        get => _skipVerifyMainAssets;
+        set
         {
-          configuration.Kernel.SkipVerifyMainAssets = Core.SkipVerifyMainAssets;
-          configuration.Kernel.SkipInvokeCoreTweaks = Core.SkipInvokeCoreTweaks;
-          configuration.Kernel.SkipResumeCheckpoint = Core.SkipResumeCheckpoint;
-          configuration.Kernel.SkipSetShadersConfig = Core.SkipSetShadersConfig;
-          configuration.Kernel.SkipInvokeExecutable = Core.SkipInvokeExecutable;
-          configuration.Kernel.SkipPatchLargeAAware = Core.SkipPatchLargeAAware;
-          configuration.Kernel.EnableSpv3KernelMode = Core.EnableSpv3KernelMode;
-          configuration.Kernel.EnableSpv3LegacyMode = Core.EnableSpv3LegacyMode;
+          if (value == _skipVerifyMainAssets) return;
+          _skipVerifyMainAssets = value;
+          OnPropertyChanged();
         }
-
-        /* shaders */
-        {
-          configuration.PostProcessing.DynamicLensFlares = Shaders.DynamicLensFlares;
-          configuration.PostProcessing.Volumetrics       = Shaders.Volumetrics;
-          configuration.PostProcessing.LensDirt          = Shaders.LensDirt;
-          configuration.PostProcessing.HudVisor          = Shaders.HudVisor;
-          configuration.PostProcessing.FilmGrain         = Shaders.FilmGrain;
-        }
-
-        configuration.Save();
       }
 
-      public void Load()
+      public bool SkipInvokeCoreTweaks
       {
-        var configuration = (HXE.Configuration) HXE.Paths.Configuration;
-        configuration.Load();
-
-        /* core */
+        get => _skipInvokeCoreTweaks;
+        set
         {
-          Core.SkipVerifyMainAssets = configuration.Kernel.SkipVerifyMainAssets;
-          Core.SkipInvokeCoreTweaks = configuration.Kernel.SkipInvokeCoreTweaks;
-          Core.SkipResumeCheckpoint = configuration.Kernel.SkipResumeCheckpoint;
-          Core.SkipSetShadersConfig = configuration.Kernel.SkipSetShadersConfig;
-          Core.SkipInvokeExecutable = configuration.Kernel.SkipInvokeExecutable;
-          Core.SkipPatchLargeAAware = configuration.Kernel.SkipPatchLargeAAware;
-          Core.EnableSpv3KernelMode = configuration.Kernel.EnableSpv3KernelMode;
-          Core.EnableSpv3LegacyMode = configuration.Kernel.EnableSpv3LegacyMode;
+          if (value == _skipInvokeCoreTweaks) return;
+          _skipInvokeCoreTweaks = value;
+          OnPropertyChanged();
         }
+      }
 
-        /* shaders */
+      public bool SkipResumeCheckpoint
+      {
+        get => _skipResumeCheckpoint;
+        set
         {
-          Shaders.DynamicLensFlares = configuration.PostProcessing.DynamicLensFlares;
-          Shaders.Volumetrics       = configuration.PostProcessing.Volumetrics;
-          Shaders.LensDirt          = configuration.PostProcessing.LensDirt;
-          Shaders.HudVisor          = configuration.PostProcessing.HudVisor;
-          Shaders.FilmGrain         = configuration.PostProcessing.FilmGrain;
+          if (value == _skipResumeCheckpoint) return;
+          _skipResumeCheckpoint = value;
+          OnPropertyChanged();
         }
+      }
+
+      public bool SkipSetShadersConfig
+      {
+        get => _skipSetShadersConfig;
+        set
+        {
+          if (value == _skipSetShadersConfig) return;
+          _skipSetShadersConfig = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public bool SkipInvokeExecutable
+      {
+        get => _skipInvokeExecutable;
+        set
+        {
+          if (value == _skipInvokeExecutable) return;
+          _skipInvokeExecutable = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public bool SkipPatchLargeAAware
+      {
+        get => _skipPatchLargeAAware;
+        set
+        {
+          if (value == _skipPatchLargeAAware) return;
+          _skipPatchLargeAAware = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public bool EnableSpv3KernelMode
+      {
+        get => _enableSpv3KernelMode;
+        set
+        {
+          if (value == _enableSpv3KernelMode) return;
+          _enableSpv3KernelMode = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public bool EnableSpv3LegacyMode
+      {
+        get => _enableSpv3LegacyMode;
+        set
+        {
+          if (value == _enableSpv3LegacyMode) return;
+          _enableSpv3LegacyMode = value;
+          OnPropertyChanged();
+        }
+      }
+
+      public event PropertyChangedEventHandler PropertyChanged;
+
+      [NotifyPropertyChangedInvocator]
+      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+      {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
       }
     }
   }

@@ -24,8 +24,9 @@ namespace SPV3
 {
   public partial class Configuration
   {
-    public ConfigurationLoader Loader { get; set; } = new ConfigurationLoader();
-    public ConfigurationKernel Kernel { get; set; } = new ConfigurationKernel();
+    public ConfigurationLoader  Loader  { get; set; } = new ConfigurationLoader();
+    public ConfigurationKernel  Kernel  { get; set; } = new ConfigurationKernel();
+    public ConfigurationShaders Shaders { get; set; } = new ConfigurationShaders();
 
     public void Load()
     {
@@ -33,13 +34,61 @@ namespace SPV3
         Loader.Load();
 
       if (File.Exists(HXE.Paths.Configuration))
-        Kernel.Load();
+      {
+        var configuration = (HXE.Configuration) HXE.Paths.Configuration;
+        configuration.Load();
+
+        /* core */
+        {
+          Kernel.SkipVerifyMainAssets = configuration.Kernel.SkipVerifyMainAssets;
+          Kernel.SkipInvokeCoreTweaks = configuration.Kernel.SkipInvokeCoreTweaks;
+          Kernel.SkipResumeCheckpoint = configuration.Kernel.SkipResumeCheckpoint;
+          Kernel.SkipSetShadersConfig = configuration.Kernel.SkipSetShadersConfig;
+          Kernel.SkipInvokeExecutable = configuration.Kernel.SkipInvokeExecutable;
+          Kernel.SkipPatchLargeAAware = configuration.Kernel.SkipPatchLargeAAware;
+          Kernel.EnableSpv3KernelMode = configuration.Kernel.EnableSpv3KernelMode;
+          Kernel.EnableSpv3LegacyMode = configuration.Kernel.EnableSpv3LegacyMode;
+        }
+
+        /* shaders */
+        {
+          Shaders.DynamicLensFlares = configuration.PostProcessing.DynamicLensFlares;
+          Shaders.Volumetrics       = configuration.PostProcessing.Volumetrics;
+          Shaders.LensDirt          = configuration.PostProcessing.LensDirt;
+          Shaders.HudVisor          = configuration.PostProcessing.HudVisor;
+          Shaders.FilmGrain         = configuration.PostProcessing.FilmGrain;
+        }
+      }
     }
 
     public void Save()
     {
       Loader.Save();
-      Kernel.Save();
+
+      var configuration = (HXE.Configuration) HXE.Paths.Configuration;
+
+      /* core */
+      {
+        configuration.Kernel.SkipVerifyMainAssets = Kernel.SkipVerifyMainAssets;
+        configuration.Kernel.SkipInvokeCoreTweaks = Kernel.SkipInvokeCoreTweaks;
+        configuration.Kernel.SkipResumeCheckpoint = Kernel.SkipResumeCheckpoint;
+        configuration.Kernel.SkipSetShadersConfig = Kernel.SkipSetShadersConfig;
+        configuration.Kernel.SkipInvokeExecutable = Kernel.SkipInvokeExecutable;
+        configuration.Kernel.SkipPatchLargeAAware = Kernel.SkipPatchLargeAAware;
+        configuration.Kernel.EnableSpv3KernelMode = Kernel.EnableSpv3KernelMode;
+        configuration.Kernel.EnableSpv3LegacyMode = Kernel.EnableSpv3LegacyMode;
+      }
+
+      /* shaders */
+      {
+        configuration.PostProcessing.DynamicLensFlares = Shaders.DynamicLensFlares;
+        configuration.PostProcessing.Volumetrics       = Shaders.Volumetrics;
+        configuration.PostProcessing.LensDirt          = Shaders.LensDirt;
+        configuration.PostProcessing.HudVisor          = Shaders.HudVisor;
+        configuration.PostProcessing.FilmGrain         = Shaders.FilmGrain;
+      }
+
+      configuration.Save();
     }
   }
 }
