@@ -22,7 +22,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Net.Cache;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -32,7 +31,6 @@ using static System.Environment;
 using static System.IO.Compression.ZipFile;
 using static System.IO.File;
 using static System.IO.Path;
-using static System.Net.Cache.HttpRequestCacheLevel;
 using static HXE.Console;
 
 namespace HXE
@@ -78,10 +76,7 @@ namespace HXE
       {
         Info("Inferred web request manifest - " + uri);
 
-        var req = WebRequest.Create(uri);
-        req.CachePolicy = new HttpRequestCachePolicy(NoCacheNoStore);
-
-        using (var wr = (HttpWebResponse) req.GetResponse())
+        using (var wr = (HttpWebResponse) WebRequest.Create(uri).GetResponse())
         using (var rs = wr.GetResponseStream())
         using (var sr = new StreamReader(rs ?? throw new NullReferenceException("No response for manifest.")))
         {
